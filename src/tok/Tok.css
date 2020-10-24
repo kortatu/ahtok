@@ -1,0 +1,105 @@
+.Scenario {
+    font-size: calc(8px + 2vmin);
+}
+.PassZone {
+    display: inline-block;
+    justify-content: center;
+    font-size: calc(8px + 2vmin);
+}
+
+.ParamChanger {
+    display: block;
+}
+
+.IconAction {
+    cursor: pointer;
+    user-select: none;
+    -ms-user-select: none;
+}
+
+.PassSeparator {
+    border-style: dashed;
+    color: white;
+}
+
+.LineKey {
+    padding-right: 10px;
+}
+
+.LineProb {
+    /*font-size: calc(6px + 2vmin);*/
+}
+.LineProb span {
+    margin-right: 5px;
+}
+.Token {
+    padding-left: 1%;
+    padding-right: 1%;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    color: transparent;
+    user-select: none;
+    -ms-user-select: none;
+}
+
+.Token.Token0 {
+    background-image: url("token0.png");
+}
+
+.Token.Token-1 {
+    background-image: url("token-1.png");
+}
+
+.Token.Token1 {
+    background-image: url("token1.png");
+}
+
+.Token.Token-2 {
+    background-image: url("token-2.png");
+}
+
+.Token.Token-3 {
+    background-image: url("token-3.png");
+}
+
+.Token.Token-4 {
+    background-image: url("token-4.png");
+}
+
+.Token.Token-5 {
+    background-image: url("token-5.png");
+}
+
+.Token.Token-6 {
+    background-image: url("token-6.png");
+}
+
+.Token.Token-8 {
+    background-image: url("token-8.png");
+}
+
+.Token.Calavera {
+    background-image: url("skull.png");
+}
+
+.Token.Lápida {
+    background-image: url("tombStone.png");
+}
+
+.Token.Sectario {
+    background-image: url("cultist.png");
+}
+
+.Token.Antiguo {
+    background-image: url("elder.png");
+}
+
+.Token.elderSign {
+    background-image: url("elderSign.png");
+}
+
+.Token.Fallo {
+    background-image: url("fail.png");
+}
