@@ -15,18 +15,9 @@ function App() {
     <div className="App">
         <header className="App-header">{campaign.name}
         </header>
-        <button onClick={(_) => setScenario(campaign.prevScenario())}>Prev</button>
-        <button onClick={(_) => setScenario(campaign.nextScenario())}>Next</button>
+        <button onClick={() => setScenario(campaign.prevScenario())}>Prev</button>
+        <button onClick={() => setScenario(campaign.nextScenario())}>Next</button>
         <ScenarioPassZone scenario={scenario} setScenario={setScenario}/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-
     </div>
   );
 }

@@ -32,11 +32,32 @@
 .LineProb span {
     margin-right: 5px;
 }
+
+.BagDisplay {
+
+}
+/*.BagDisplay p {*/
+/*    font-size: medium;*/
+/*}*/
+
+.BagDisplay .TokenStrip {
+    font-size: xx-large;
+}
+
+.TokenPassLine{
+
+}
+
+.TokenPassLine .TokenStrip {
+    font-size: calc(28px + 2vmin);
+}
+
 .Token {
     padding-left: 1%;
     padding-right: 1%;
-    display: inline-block;
-    background-position: center;
+    display: inline;
+    background-position-y: top;
+    background-position-x: center;
     background-repeat: no-repeat;
     background-size: contain;
     color: transparent;
@@ -44,62 +65,67 @@
     -ms-user-select: none;
 }
 
+.TokenPassLine .Token {
+
+}
+
+
 .Token.Token0 {
-    background-image: url("token0.png");
+    background-image: url("icons/token0.png");
 }
 
 .Token.Token-1 {
-    background-image: url("token-1.png");
+    background-image: url("icons/token-1.png");
 }
 
 .Token.Token1 {
-    background-image: url("token1.png");
+    background-image: url("icons/token1.png");
 }
 
 .Token.Token-2 {
-    background-image: url("token-2.png");
+    background-image: url("icons/token-2.png");
 }
 
 .Token.Token-3 {
-    background-image: url("token-3.png");
+    background-image: url("icons/token-3.png");
 }
 
 .Token.Token-4 {
-    background-image: url("token-4.png");
+    background-image: url("icons/token-4.png");
 }
 
 .Token.Token-5 {
-    background-image: url("token-5.png");
+    background-image: url("icons/token-5.png");
 }
 
 .Token.Token-6 {
-    background-image: url("token-6.png");
+    background-image: url("icons/token-6.png");
 }
 
 .Token.Token-8 {
-    background-image: url("token-8.png");
+    background-image: url("icons/token-8.png");
 }
 
 .Token.Calavera {
-    background-image: url("skull.png");
+    background-image: url("icons/skull.png");
 }
 
 .Token.Lápida {
-    background-image: url("tombStone.png");
+    background-image: url("icons/tombStone.png");
 }
 
 .Token.Sectario {
-    background-image: url("cultist.png");
+    background-image: url("icons/cultist.png");
 }
 
 .Token.Antiguo {
-    background-image: url("elder.png");
+    background-image: url("icons/elder.png");
 }
 
 .Token.elderSign {
-    background-image: url("elderSign.png");
+    background-image: url("icons/elderSign.png");
 }
 
 .Token.Fallo {
-    background-image: url("fail.png");
+    background-image: url("icons/fail.png");
 }

@@ -1,9 +1,10 @@
 import React, {CSSProperties, useState} from "react";
-import {bagSkillLines, ISkillLine, nnDec, printSkillLine, TokenBagPassZone} from "./Token";
+import {passZoneLines, ISkillLine, nnDec, printSkillLine, TokenBagPassZone} from "./Token";
 import "./Tok.css"
-import {ParamChanger} from "./ParamChanger";
+import {NumericParamChanger} from "./ParamChanger";
+import {TokenSpan} from "./TokenSpan";
 
-export function PassZone(props: {bag: TokenBagPassZone}) {
+export function PassZone(props: {passZone: TokenBagPassZone}) {
     const [skill, setSkill] = useState<number>(4);
     const [test, setTest] = useState<number>(3);
     const ulStyle: CSSProperties = {
@@ -17,7 +18,7 @@ export function PassZone(props: {bag: TokenBagPassZone}) {
                 <ul style={ulStyle}>
                     <hr />
                     {
-                    bagSkillLines(props.bag, skill, test).map( line => (
+                    passZoneLines(props.passZone, skill, test).map(line => (
                         <PassLine key={line.key} line={line} />
                     ))
                     }
@@ -37,8 +38,8 @@ function SkillTestChanger(setSkill: (value: (((prevState: number) => number) | n
     const decTest = () => setTest(nnDec(test));
     return (
         <div>
-            <ParamChanger name="Skill" currentValue={skill} incValue={incSkill} decValue={decSkill}/>
-            <ParamChanger name="Test" currentValue={test} incValue={incTest} decValue={decTest}/>
+            <NumericParamChanger name="Skill" currentValue={skill} incValue={incSkill} decValue={decSkill}/>
+            <NumericParamChanger name="Test" currentValue={test} incValue={incTest} decValue={decTest}/>
         </div>
     );
 }
@@ -59,15 +60,20 @@ function PassLine(props: {line: ISkillLine}) {
     return (
         <li id={"passLine_" + skill} style={liStyle}>
             { lineSeparator}
-            <div style={{display: "flex"}}>
+            <div className="TokenPassLine" style={{display: "flex"}}>
                 <div className="LineKey">
                     <strong>{trailSpace}{line.key}</strong>:
                 </div>
                 <div className="LineProb">
                     <span>{line.prob.toFixed(2)}%</span>
-                    <span className="material-icons" style={{color: "yellow", fontSize: "medium"}}>
-                    {line.currentProb ? "west" : ""}
-                    </span>
+                </div>
+                <div className="TokenStrip">
+                    {line.tokens.map((token, index) => (
+                        <TokenSpan key={index} token={token} />
+                    ))}
+                    {/*<span className="material-icons" style={{color: "yellow", fontSize: "medium"}}>*/}
+                    {/*{line.currentProb ? "west" : ""}*/}
+                    {/*</span>*/}
                 </div>
             </div>
         </li>

@@ -1,10 +1,10 @@
 import {
     buildBagFromSpec,
     buildEffectSpecs,
-    tokenBagPassZone,
     ScenarioContext,
     ScenarioEffectSpecs,
     TokenBag,
+    tokenBagPassZone,
     TokenBagSpec
 } from "./Token";
 import {AHCharacter} from "./AHCharacter";
@@ -12,7 +12,30 @@ import {AHCharacter} from "./AHCharacter";
 export interface IScenarioSpec {
     name: string;
     scenarioEffectSpec: ScenarioEffectSpecs;
-    initContext: () => ScenarioContext;
+    contextSpec: IScenarioContextSpec
+}
+
+export function initContext(contextSpec: IScenarioContextSpec): ScenarioContext {
+    const context: ScenarioContext = {};
+    contextSpec.valuesSpec.forEach( vs => context[vs.name] = vs.initialValue)
+    return context;
+}
+
+export interface IScenarioContextSpec {
+    valuesSpec: IContextValueSpec[];
+}
+
+export function findValueSpec(contextSpec: IScenarioContextSpec, key: string) {
+    return contextSpec.valuesSpec.find(vs => vs.name === key);
+}
+
+type IContextValueType = "number" | "boolean";
+
+export interface IContextValueSpec {
+    name: string;
+    description: string;
+    initialValue: number | boolean;
+    type: IContextValueType;
 }
 
 export class Scenario {
@@ -24,7 +47,7 @@ export class Scenario {
                 public characters: AHCharacter[],
                 context?: ScenarioContext,
                 character?: AHCharacter) {
-        this.currentContext = context ?? scenarioSpec.initContext();
+        this.currentContext = context ?? initContext(scenarioSpec.contextSpec);
         this.currentCharacter = character ?? characters[0];
         this.tokenBag = this.buildBag();
     }
@@ -44,22 +67,27 @@ export class Scenario {
         }
     }
 
-    setContext(context: ScenarioContext) {
-        this.currentContext = context;
-        this.tokenBag = this.buildBag();
+    // setContext(context: ScenarioContext) {
+    //     this.currentContext = context;
+    //     this.tokenBag = this.buildBag();
+    // }
+
+    getContextSpec(): IScenarioContextSpec {
+        return this.scenarioSpec.contextSpec;
     }
 
     incContextValue(key: string): Scenario {
+        const newValue: number = ((this.currentContext[key] as number) ?? 0) + 1;
         const newContext = {
             ...this.currentContext,
-            [key]: (this.currentContext[key] ?? 0) + 1
+            [key]: newValue
         }
         return this.rebuildScenario(newContext);
     }
 
     decContextValue(key: string) {
-        const oldValue = this.currentContext[key] ?? 0;
-        if (oldValue) {
+        let oldValue: number = (this.currentContext[key] as number) ?? 0;
+        if (oldValue > 0) {
             const newValue = oldValue - 1;
             const newContext = {
                 ...this.currentContext,
@@ -69,10 +97,18 @@ export class Scenario {
         } else {
             return this;
         }
-
     }
 
-    private rebuildScenario(newContext: { [p: string]: number }) {
+    toggleContextValue(key: string) {
+        const oldValue = this.currentContext[key] as boolean;
+        const newContext = {
+            ...this.currentContext,
+            [key]: !oldValue
+        }
+        return this.rebuildScenario(newContext)
+    }
+
+    private rebuildScenario(newContext: ScenarioContext) {
         return new Scenario(this.scenarioSpec, this.bagSpec, this.characters,
             newContext, this.currentCharacter);
     }
@@ -88,5 +124,4 @@ export class Scenario {
     name() {
         return this.scenarioSpec.name;
     }
-
 }

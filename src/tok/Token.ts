@@ -77,7 +77,7 @@ export function allTokenSpecs(bagSpec: TokenBagSpec): TokenSpec[] {
     return allTokensIndividually;
 }
 
-export type ScenarioContext = { [key: string]: number };
+export type ScenarioContext = { [key: string]: number|boolean };
 
 export interface TokenBag {
     context: ScenarioContext;
@@ -137,6 +137,21 @@ interface ValueCount {
     count: number;
 }
 
+function tokensWithValue(tokenBag: TokenBag, value: number): Token[] {
+    const tokens = [];
+    const sorted = sortTokens(tokenBag);
+    let i = 0;
+    while (i < sorted.length && sorted[i].effect(tokenBag) >= value) {
+        if (sorted[i].effect(tokenBag) === value) {
+            for (let j=0; j < sorted[i].count; j++) {
+                tokens.push(sorted[i]);
+            }
+        }
+        i++;
+    }
+    return tokens;
+}
+
 export function histogram(tokenBag: TokenBag) {
     return sortTokens(tokenBag).reduce<ValueCount[]>((previousValues: ValueCount[], token: Token) => {
         const last = previousValues.length >= 1 ? previousValues[previousValues.length - 1] : undefined;
@@ -191,27 +206,36 @@ export function allTokens(bag: TokenBag): Token[] {
 export interface WithTokenBag {
     tokenBag: TokenBag;
 }
-export type TokenBagPassZone = Map<number, number> & WithTokenBag;
+export interface ITokensInPassLine {
+    tokens: Token[];
+    prob: number;
+}
+export type TokenBagPassZone = Map<number, ITokensInPassLine> & WithTokenBag;
 export function tokenBagPassZone(tokenBag: TokenBag): TokenBagPassZone {
     const accum = accumulated(tokenBag);
-    const map = new Map<number, number>() as TokenBagPassZone;
+    const map = new Map<number, ITokensInPassLine>() as TokenBagPassZone;
     map.tokenBag = tokenBag;
     const total = accum[accum.length - 1].count;
     accum.forEach(vc => {
-        vc.value !== FALLO_AUTOMATICO_VALUE && map.set(vc.value, 100 * vc.count / total);
+        if (vc.value !== FALLO_AUTOMATICO_VALUE) {
+            const prob = 100 * vc.count / total;
+            const tokens = tokensWithValue(tokenBag, vc.value);
+            map.set(vc.value, {tokens, prob});
+        }
     });
     return map;
 }
 
 export interface ISkillLine {
     key: number;
+    tokens: Token[];
     prob: number;
     pass: boolean;
     firstFail: boolean;
     currentProb: boolean;
 }
 
-export function bagSkillLines(tokenBagMap: TokenBagPassZone, skill: number, test: number): ISkillLine[] {
+export function passZoneLines(tokenBagMap: TokenBagPassZone, skill: number, test: number): ISkillLine[] {
     const lines: ISkillLine[] = [];
     let stillPass = true;
     tokenBagMap.forEach((value, key) => {
@@ -223,7 +247,8 @@ export function bagSkillLines(tokenBagMap: TokenBagPassZone, skill: number, test
         stillPass = pass;
         lines.push({
             key,
-            prob: value,
+            tokens: value.tokens,
+            prob: value.prob,
             pass,
             firstFail,
             currentProb
@@ -237,13 +262,14 @@ export function printSkillLine(tokenBagMap: TokenBagPassZone, skill: number, tes
     output+="******************\n";
     output+=`Skill: ${skill}, Test: ${test}\n`;
     output+="******************\n";
-    const lines = bagSkillLines(tokenBagMap, skill, test);
+    const lines = passZoneLines(tokenBagMap, skill, test);
     lines.forEach(line => {
         const keyFormat = line.key.toString().padStart(2, " ");
         if (line.firstFail) {
             output+="------------------\n";
         }
-        output+=`${keyFormat} => ${line.prob.toFixed(2)}% ${line.currentProb ? "<----":""}\n`;
+        output+=`${keyFormat} => ${line.prob.toFixed(2)}% ${line.currentProb ? "<----":""}`;
+        output+="[" + line.tokens.map(t => t.name).join(',') + "]\n";
     });
     output+="******************\n";
     return output;
