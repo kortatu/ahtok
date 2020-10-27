@@ -52,9 +52,9 @@ function PassLine(props: {line: ISkillLine}) {
     }
     let lineSeparator;
     if (line.firstFail) {
-        lineSeparator = <hr className="PassSeparator"/>;
+        lineSeparator = <hr className="PassSeparator Current"/>;
     } else {
-        lineSeparator = "";
+        lineSeparator = <hr className="PassSeparator" style={{borderColor: "transparent"}}/>;
     }
     const trailSpace = skill >= 0 ? <span>&nbsp;</span> : "";
     return (

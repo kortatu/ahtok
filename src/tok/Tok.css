@@ -18,8 +18,14 @@
 }
 
 .PassSeparator {
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
+    border-color: transparent;
+}
+
+.PassSeparator.Current {
+    border-color: white;
     border-style: dashed;
-    color: white;
 }
 
 .LineKey {

@@ -245,7 +245,7 @@ function AnteElTronoNegro(): IScenarioSpec {
         name: "Ante el trono negro",
         scenarioEffectSpec: [
             {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
-            {name: "Calavera", effect: (tokenBag) => 0 - Math.min(2, getHalfDoomInAzathot(tokenBag))},
+            {name: "Calavera", effect: (tokenBag) => 0 - Math.max(2, getHalfDoomInAzathot(tokenBag))},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: () => -2},
             {name: "Antiguo", effect: () => -4},
