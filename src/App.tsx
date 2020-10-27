@@ -6,6 +6,7 @@ import {Campaign} from "./tok/Campaign";
 import {ScenarioPassZone} from "./tok/ScenarioPassZone";
 import {Scenario} from "./tok/Scenario";
 
+
 const firstCampaign = startAlvaroElCirculoRotoLPDP();
 const firstScenario = firstCampaign.getScenario();
 function App() {

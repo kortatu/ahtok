@@ -1,4 +1,5 @@
 import {AHCharacter} from "./AHCharacter";
+import {incDecNatural} from "../Utils";
 
 export interface TokenSpec {
     value: number,
@@ -78,6 +79,9 @@ export function allTokenSpecs(bagSpec: TokenBagSpec): TokenSpec[] {
 }
 
 export type ScenarioContext = { [key: string]: number|boolean };
+export function incDecContextNatural(state: ScenarioContext, key: string, incDec: boolean) {
+    return incDecNatural(state[key] as number, incDec);
+}
 
 export interface TokenBag {
     context: ScenarioContext;
@@ -268,7 +272,7 @@ export function printSkillLine(tokenBagMap: TokenBagPassZone, skill: number, tes
         if (line.firstFail) {
             output+="------------------\n";
         }
-        output+=`${keyFormat} => ${line.prob.toFixed(2)}% ${line.currentProb ? "<----":""}`;
+        output+=`${keyFormat} => ${line.prob.toFixed(2)}% ${line.currentProb ? "<----":"     "}`;
         output+="[" + line.tokens.map(t => t.name).join(',') + "]\n";
     });
     output+="******************\n";

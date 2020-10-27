@@ -40,22 +40,14 @@
 /*    font-size: medium;*/
 /*}*/
 
-.BagDisplay .TokenStrip {
-    font-size: xx-large;
-}
-
 .TokenPassLine{
 
 }
 
-.TokenPassLine .TokenStrip {
-    font-size: calc(28px + 2vmin);
-}
-
 .Token {
-    padding-left: 1%;
-    padding-right: 1%;
-    display: inline;
+    /*padding-left: 1%;*/
+    /*padding-right: 1%;*/
+    display: inline-block;
     background-position-y: top;
     background-position-x: center;
     background-repeat: no-repeat;
@@ -65,8 +57,14 @@
     -ms-user-select: none;
 }
 
-.TokenPassLine .Token {
+.BagDisplay .Token {
+    width: calc(12px + 2vmin);
+    height: calc(12px + 2vmin);
+}
 
+.TokenPassLine .Token {
+    width: calc(15px + 2vmin);
+    height: calc(15px + 2vmin);
 }
 
 
