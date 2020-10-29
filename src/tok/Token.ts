@@ -122,7 +122,7 @@ function sortTokens(tokenBag: TokenBag) {
     return tokenBag.tokens.sort((a, b) => b.effect(tokenBag) - a.effect(tokenBag));
 }
 
-export function tokenAverage(tokenBag: TokenBag): number {
+export function tokenFloatAverage(tokenBag: TokenBag) {
     const tokens = tokenBag.tokens;
     let numOfTokens = 0;
     const total = tokens.reduce<number>((sum, token) => {
@@ -132,8 +132,13 @@ export function tokenAverage(tokenBag: TokenBag): number {
         } else {
             return sum;
         }
-    },0);
-    return Math.floor(total / numOfTokens);
+    }, 0);
+    return total / numOfTokens;
+}
+
+export function tokenAverage(tokenBag: TokenBag): number {
+    const floatAverage = tokenFloatAverage(tokenBag);
+    return Math.floor(floatAverage);
 }
 
 interface ValueCount {

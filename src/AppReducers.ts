@@ -6,7 +6,7 @@ import {startAlvaroElCirculoRotoLPDP} from "./tok/ElCirculoRoto";
 import {
     CHANGE_CHARACTER,
     CHANGE_SCENARIO,
-    CHANGE_SKILL, CHANGE_TEST,
+    CHANGE_SKILL, CHANGE_TEST, changeScenario,
     IAppAction,
     ICharacterAction,
     IContextAction,

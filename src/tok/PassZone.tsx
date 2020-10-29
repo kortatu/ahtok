@@ -3,6 +3,7 @@ import {passZoneLines, ISkillLine, nnDec, printSkillLine, TokenBagPassZone} from
 import "./Tok.css"
 import {NumericParamChanger} from "./ParamChanger";
 import {TokenSpan} from "./TokenSpan";
+import {Typography} from "@material-ui/core";
 
 export function PassZone(props: {passZone: TokenBagPassZone}) {
     const [skill, setSkill] = useState<number>(4);
@@ -13,7 +14,7 @@ export function PassZone(props: {passZone: TokenBagPassZone}) {
     }
     return (
         <div className="PassZone">
-            <h2>Pass zone</h2>
+            <Typography variant="h4">Pass zone</Typography>
             <div className="tokenBagPassZone">
                 <ul style={ulStyle}>
                     <hr />
@@ -37,10 +38,10 @@ function SkillTestChanger(setSkill: (value: (((prevState: number) => number) | n
     const decSkill = () => setSkill(nnDec(skill));
     const decTest = () => setTest(nnDec(test));
     return (
-        <div>
-            <NumericParamChanger name="Skill" currentValue={skill} incValue={incSkill} decValue={decSkill}/>
-            <NumericParamChanger name="Test" currentValue={test} incValue={incTest} decValue={decTest}/>
-        </div>
+        <Typography variant="h5">
+            <NumericParamChanger inline={true} name="Skill" currentValue={skill} incValue={incSkill} decValue={decSkill}/>
+            <NumericParamChanger inline={true} name="Test" currentValue={test} incValue={incTest} decValue={decTest}/>
+        </Typography>
     );
 }
 
@@ -60,7 +61,7 @@ function PassLine(props: {line: ISkillLine}) {
     return (
         <li id={"passLine_" + skill} style={liStyle}>
             { lineSeparator}
-            <div className="TokenPassLine" style={{display: "flex"}}>
+            <Typography variant="h5" className="TokenPassLine" style={{display: "flex"}}>
                 <div className="LineKey">
                     <strong>{trailSpace}{line.key}</strong>:
                 </div>
@@ -75,7 +76,7 @@ function PassLine(props: {line: ISkillLine}) {
                     {/*{line.currentProb ? "west" : ""}*/}
                     {/*</span>*/}
                 </div>
-            </div>
+            </Typography>
         </li>
     )
 }
