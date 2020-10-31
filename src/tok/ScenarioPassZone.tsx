@@ -46,28 +46,29 @@ export function ScenarioPassZone(props: {scenario: Scenario, setScenario: (newS:
 
     return (
         <div className="Scenario">
-            <Typography variant="h3">{scenario.name()}</Typography>
-            <Typography variant="h5" style={{paddingTop: "2vmin"}}>
-                    { Object.keys(context).map( contextKey => (
-                        <ContextValueChanger key={contextKey} name={contextKey} currentValue={context[contextKey]}
-                                         scenario={scenario} setScenario={setScenario} />
-                    ))}
-            </Typography>
-            <div>
-                <InputLabel>Personaje actual:</InputLabel>
-                <FormControl variant="standard" className={classes.formControl}>
-                    <Select
-                        labelId="character-selector-label"
-                        id="character-selector"
-                        value={character.shortName}
-                        onChange={e => setCharacter(findCharacterByShortName(e.target.value as string)!)}>
-                        {characters.map( aChar => (
-                            <MenuItem key={aChar.shortName} value={aChar.shortName}>{aChar.shortName}</MenuItem>
+            <div className="ScenarioInfo">
+                <Typography variant="h3">{scenario.name()}</Typography>
+                <Typography variant="h5" style={{paddingTop: "2vmin"}}>
+                        { Object.keys(context).map( contextKey => (
+                            <ContextValueChanger key={contextKey} name={contextKey} currentValue={context[contextKey]}
+                                             scenario={scenario} setScenario={setScenario} />
                         ))}
-                    </Select>
-                </FormControl>
+                </Typography>
+                <div>
+                    <InputLabel>Personaje actual:</InputLabel>
+                    <FormControl variant="standard" className={classes.formControl}>
+                        <Select
+                            labelId="character-selector-label"
+                            id="character-selector"
+                            value={character.shortName}
+                            onChange={e => setCharacter(findCharacterByShortName(e.target.value as string)!)}>
+                            {characters.map( aChar => (
+                                <MenuItem key={aChar.shortName} value={aChar.shortName}>{aChar.shortName}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
             </div>
-
             <PassZone passZone={bag} />
             <div className="BagDisplay">
                 <Typography>Bag average: {tokenFloatAverage(bag.tokenBag)}</Typography>

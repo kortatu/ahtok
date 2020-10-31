@@ -3,7 +3,7 @@ import {passZoneLines, ISkillLine, nnDec, printSkillLine, TokenBagPassZone} from
 import "./Tok.css"
 import {NumericParamChanger} from "./ParamChanger";
 import {TokenSpan} from "./TokenSpan";
-import {Typography} from "@material-ui/core";
+import {Container, Grid, GridSize, Typography} from "@material-ui/core";
 
 export function PassZone(props: {passZone: TokenBagPassZone}) {
     const [skill, setSkill] = useState<number>(4);
@@ -12,22 +12,27 @@ export function PassZone(props: {passZone: TokenBagPassZone}) {
         textAlign: "left",
         listStyleType: "none",
     }
+    const lines = passZoneLines(props.passZone, skill, test);
     return (
-        <div className="PassZone">
+        <Grid container className="PassZone" alignItems={"center"}>
+            <Grid item xs={12} sm={8} md={6} >
             <Typography variant="h4">Pass zone</Typography>
-            <div className="tokenBagPassZone">
-                <ul style={ulStyle}>
-                    <hr />
+            <hr />
+            <Grid container direction="column">
                     {
-                    passZoneLines(props.passZone, skill, test).map(line => (
-                        <PassLine key={line.key} line={line} />
+                    lines.map(line => (
+                        <Grid key={line.key} item>
+                            <PassLineGrid line={line} />
+                        </Grid>
                     ))
                     }
-                    <hr />
-                </ul>
-            </div>
-            {SkillTestChanger(setSkill, skill, setTest, test)}
-        </div>
+            </Grid>
+            <hr />
+            </Grid>
+            <Grid item xs={12} sm={4} md={6} style={{textAlign: "center"}}>
+                {SkillTestChanger(setSkill, skill, setTest, test)}
+            </Grid>
+        </Grid>
     )
 }
 
@@ -43,6 +48,44 @@ function SkillTestChanger(setSkill: (value: (((prevState: number) => number) | n
             <NumericParamChanger inline={true} name="Test" currentValue={test} incValue={incTest} decValue={decTest}/>
         </Typography>
     );
+}
+
+function PassLineGrid(props: {line: ISkillLine}) {
+    const line = props.line;
+    const rowStyle: CSSProperties = {
+        borderTopWidth: line.firstFail ? "0.2em" : "0px",
+        borderTopColor: line.firstFail ? "secondary": "transparent",
+        borderTopStyle: line.firstFail ? "dashed": "none"
+    }
+    const skill = line.key;
+    const liStyle = {
+        color: line.pass ? "green" : "red",
+    }
+    let lineSeparator;
+    if (line.firstFail) {
+        lineSeparator = <hr className="PassSeparator Current"/>;
+    } else {
+        lineSeparator = <hr className="PassSeparator" style={{borderColor: "transparent"}}/>;
+    }
+    return (
+        <div>{lineSeparator}
+        <Grid container  direction="row"  alignItems="flex-start" xs={12} sm={12} spacing={1}>
+            <Grid item style={{...liStyle, textAlign: "center"}} xs={2} sm={1}>
+                <Typography variant="h5" >{line.key}</Typography>
+            </Grid>
+            <Grid item style={liStyle} className="LineProb" xs={2} sm={2}>
+                <Typography variant="body1">{line.prob.toFixed(2)}%</Typography>
+            </Grid>
+            <Grid item style={{textAlign: "left"}} xs={8} sm={9}>
+                <Typography variant="h3" noWrap={true}>
+                {line.tokens.map((token, index) => (
+                    <TokenSpan key={index} token={token} />
+                ))}
+                </Typography>
+            </Grid>
+        </Grid>
+        </div>
+    )
 }
 
 function PassLine(props: {line: ISkillLine}) {
