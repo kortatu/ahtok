@@ -6,7 +6,8 @@ import {startAlvaroElCirculoRotoLPDP} from "./tok/ElCirculoRoto";
 import {
     CHANGE_CHARACTER,
     CHANGE_SCENARIO,
-    CHANGE_SKILL, CHANGE_TEST, changeScenario,
+    CHANGE_SKILL,
+    CHANGE_TEST,
     IAppAction,
     ICharacterAction,
     IContextAction,
@@ -45,6 +46,9 @@ const selectedScenario: Reducer<Scenario, IAppAction> = (state = firstScenario, 
         case CHANGE_SCENARIO:
             const scenarioAction = action as IScenarioAction;
             return scenarioAction.scenario;
+        case CHANGE_CHARACTER:
+            const charAction = action as ICharacterAction;
+            return state.setCharacterImmutable(charAction.character);
         default:
             return state;
     }
@@ -59,8 +63,6 @@ const selectedCharacter: Reducer<AHCharacter, IAppAction> = (state = firstScenar
             return state;
     }
 }
-
-
 
 const gameContext: Reducer<ScenarioContext, IAppAction> = (gameContext = firstScenario.currentContext, action: IAppAction) => {
     switch (action.type) {

@@ -59,7 +59,7 @@ export class Campaign implements ICampaign {
     nextScenario() {
         if ((this.currentScenario + 1 ) < this.campaignSpec.scenarios.length) {
             this.currentScenario++;
-            console.log("Current scenario index", this.currentScenario, "name", this.campaignSpec.scenarios[this.currentScenario].name);
+            // console.log("Current scenario index", this.currentScenario, "name", this.campaignSpec.scenarios[this.currentScenario].name);
             if (this.currentScenario >= this.scenarios.length) {
                 // TODO: Modify current bag spec depending on resolution or preparation of new scenario
                 const newScenario = this.buildScenario();

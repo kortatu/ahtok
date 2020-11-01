@@ -1,6 +1,6 @@
 import React from "react";
 import {findValueSpec, Scenario} from "./Scenario";
-import {IconButton, InputLabel, Switch, Typography} from "@material-ui/core";
+import {IconButton, InputLabel, Switch} from "@material-ui/core";
 
 export function ContextValueChanger(props: {name: string, currentValue: number | boolean, scenario: Scenario, setScenario: (scenario: Scenario) => void}) {
     const contextKey = props.name;
@@ -35,8 +35,6 @@ export function NumericParamChanger(props: {inline: boolean, name: string, curre
 export function BooleanParamChanger(props: {name: string, currentValue: boolean, toggle: () => void}) {
     const name = props.name;
     const currentValue = props.currentValue;
-    const iconAction = currentValue ? "toggle_on" : "toggle_off"
-    const switchStyle = {fontSize: "48px", verticalAlign: "middle", color: currentValue ? "white" : "gray"};
     return (
         <div className="ParamChanger">
             <InputLabel>{name}:</InputLabel>
@@ -47,8 +45,6 @@ export function BooleanParamChanger(props: {name: string, currentValue: boolean,
                 name="name"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
-
-            {/*<span className="IconAction material-icons" style={switchStyle} onClick={_ => props.toggle()}>{iconAction}</span>*/}
         </div>
     )
 }

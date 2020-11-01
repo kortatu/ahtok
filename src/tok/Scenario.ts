@@ -67,10 +67,14 @@ export class Scenario {
         }
     }
 
-    // setContext(context: ScenarioContext) {
-    //     this.currentContext = context;
-    //     this.tokenBag = this.buildBag();
-    // }
+    setCharacterImmutable(character: AHCharacter) {
+        if (this.currentCharacter !== character) {
+            const scenario = new Scenario(this.scenarioSpec, this.bagSpec, this.characters, this.currentContext, character);
+            return scenario;
+        } else {
+            return this;
+        }
+    }
 
     getContextSpec(): IScenarioContextSpec {
         return this.scenarioSpec.contextSpec;
