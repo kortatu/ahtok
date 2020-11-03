@@ -1,5 +1,5 @@
 import React from "react";
-import {passZoneLines, ISkillLine, TokenBagPassZone} from "./Token";
+import {passZoneLines, ISkillLine, TokenBagPassZone, TokenBag, tokenBagPassZone} from "./Token";
 import "./Tok.css"
 import {TokenSpan} from "./TokenSpan";
 import {Grid, Typography} from "@material-ui/core";
@@ -8,18 +8,17 @@ import {SkillTest} from "./SkillTest";
 import {connect} from "react-redux";
 import {AppState} from "../AppState";
 
-function mapStateToProps(state: AppState) {
+function mapStateToProps(state: AppState, ownProps: {tokenBag: TokenBag}) {
     return {
-        // TODO: take passZone from current bag pass zone, not from scenario
-        passZone: state.selectedScenario.tokenBagPassZone(),
+        passZone: tokenBagPassZone(ownProps.tokenBag),
         skillTest: state.skillTest
     }
 }
 
 export const CurrentPassZone = connect(mapStateToProps)(PassZone);
 
-export function PassZone(props: {passZone: TokenBagPassZone, skillTest: SkillTest}) {
-    const lines = passZoneLines(props.passZone, props.skillTest.skill, props.skillTest.test);
+export function PassZone({passZone, skillTest}: {passZone: TokenBagPassZone, skillTest: SkillTest}) {
+    const lines = passZoneLines(passZone, skillTest.skill, skillTest.test);
     return (
         <Grid container className="PassZone" alignItems={"center"}>
             <Grid item xs={12} sm={8} md={6} >

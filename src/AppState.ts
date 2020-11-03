@@ -1,13 +1,22 @@
 import {Campaign} from "./tok/Campaign";
-import {Scenario} from "./tok/Scenario";
-import {ScenarioContext} from "./tok/Token";
+import {IScenarioSpec} from "./tok/Scenario";
+import {buildBagFromSpec, buildEffectSpecs, ScenarioContext} from "./tok/Token";
 import {SkillTest} from "./tok/SkillTest";
 import {AHCharacter} from "./tok/AHCharacter";
 
 export interface AppState {
     selectedCampaign: Campaign;
-    selectedScenario: Scenario;
+    selectedScenario: IScenarioSpec;
     selectedCharacter: AHCharacter;
     gameContext: ScenarioContext;
     skillTest: SkillTest;
+}
+
+export function buildBagFromState(appState: AppState) {
+    return buildBagFromSpec(
+        appState.selectedCampaign.currentBagSpec,
+        buildEffectSpecs(...appState.selectedScenario.scenarioEffectSpec),
+        appState.selectedCharacter,
+        appState.gameContext
+    );
 }

@@ -1,29 +1,29 @@
 import React from "react";
-import {Scenario} from "./Scenario";
+import {IScenarioSpec} from "./Scenario";
 import {CurrentPassZone} from "./PassZone";
 import {allTokens, TokenBag, tokenFloatAverage} from "./Token";
 import {TokenSpan} from "./TokenSpan";
 import {Typography} from "@material-ui/core";
 import {CurrentCharacterSelector} from "./CharacterSelector";
 import {connect} from "react-redux";
-import {AppState} from "../AppState";
+import {AppState, buildBagFromState} from "../AppState";
 import {CurrentScenarioContextManager} from "./ContextManager";
 
 
-const mapStateToProps = (state: AppState) => ({scenario: state.selectedScenario});
+const mapStateToProps = (state: AppState) => ({tokenBag: buildBagFromState(state), scenario: state.selectedScenario});
 
 export const CurrentScenarioPassZone = connect(mapStateToProps)(ScenarioPassZone);
-export function ScenarioPassZone(props: {scenario: Scenario}) {
-    const scenario = props.scenario;
+
+export function ScenarioPassZone({tokenBag, scenario}: {tokenBag: TokenBag, scenario: IScenarioSpec}) {
     return (
         <div className="Scenario">
             <div className="ScenarioInfo">
-                <Typography variant="h3">{scenario.name()}</Typography>
+                <Typography variant="h3">{scenario.name}</Typography>
                 <CurrentScenarioContextManager />
                 <CurrentCharacterSelector />
             </div>
-            <CurrentPassZone />
-            <BagDisplay tokenBag={scenario.tokenBag} />
+            <CurrentPassZone tokenBag={tokenBag}/>
+            <BagDisplay tokenBag={tokenBag} />
         </div>
     );
 }

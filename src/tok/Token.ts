@@ -82,6 +82,35 @@ export type ScenarioContext = { [key: string]: number|boolean };
 export function incDecContextNatural(state: ScenarioContext, key: string, incDec: boolean) {
     return incDecNatural(state[key] as number, incDec);
 }
+export function incContextValue(context: ScenarioContext, key: string): ScenarioContext {
+    const newValue: number = ((context[key] as number) ?? 0) + 1;
+    const newContext = {
+        ...context,
+        [key]: newValue
+    }
+    return newContext;
+}
+
+export function decContextValue(context: ScenarioContext, key: string): ScenarioContext {
+    let oldValue: number = (context[key] as number) ?? 0;
+    let newContext = context;
+    if (oldValue > 0) {
+        const newValue = oldValue - 1;
+        newContext = {
+            ...context,
+            [key]: newValue
+        }
+    }
+    return newContext;
+}
+
+export function toggleContextValue(context: ScenarioContext, key: string): ScenarioContext {
+    const oldValue = context[key] as boolean;
+    return {
+        ...context,
+        [key]: !oldValue
+    };
+}
 
 export interface TokenBag {
     context: ScenarioContext;

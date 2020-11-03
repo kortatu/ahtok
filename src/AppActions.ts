@@ -1,10 +1,10 @@
 import {Action} from "redux";
 import {AHCharacter} from "./tok/AHCharacter";
-import {Scenario} from "./tok/Scenario";
+import {IScenarioSpec} from "./tok/Scenario";
 
 export interface IAppAction extends Action {}
 export interface ICampaignAction extends IAppAction {}
-export interface IScenarioAction extends IAppAction { scenario: Scenario }
+export interface IScenarioAction extends IAppAction { scenarioSpec: IScenarioSpec }
 export interface ICharacterAction extends IAppAction { character: AHCharacter }
 export interface IContextAction extends IAppAction { key: string }
 export interface IIncDecAction extends IAppAction { incDec: boolean }
@@ -40,10 +40,10 @@ export function getBackScenario(): ICampaignAction {
 }
 
 // Scenario
-export function changeScenario(scenario: Scenario): IScenarioAction {
+export function changeScenario(scenarioSpec: IScenarioSpec): IScenarioAction {
     return {
         type: CHANGE_SCENARIO,
-        scenario
+        scenarioSpec
     }
 }
 // Character

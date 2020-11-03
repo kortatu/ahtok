@@ -9,7 +9,7 @@ import {
 } from "./Token";
 import {AHLevel, Campaign, ICampaignSpec} from "./Campaign";
 import {IScenarioSpec} from "./Scenario";
-import {AHCharacter} from "./AHCharacter";
+import {AHCharacter, AHCharacters} from "./AHCharacter";
 
 
 function easy(): TokenBagSpec {
@@ -261,8 +261,9 @@ function AnteElTronoNegro(): IScenarioSpec {
     };
 }
 
-function buildElCirculoRotoCampaignSpec(): ICampaignSpec {
+export function buildElCirculoRotoCampaignSpec(): ICampaignSpec {
     return {
+        id: "TheCircleUndone",
         name: "El ci´rculo roto",
         scenarios: [
             Prologo(),
@@ -279,13 +280,14 @@ function buildElCirculoRotoCampaignSpec(): ICampaignSpec {
 }
 
 export function startElCirculoRoto(characters: AHCharacter[], level: AHLevel) {
-    return new Campaign(buildElCirculoRotoCampaignSpec(), characters, level);
+    return Campaign.start(buildElCirculoRotoCampaignSpec(), characters, level);
 }
 
 export function startAlvaroElCirculoRotoLPDP() {
     const campaign = startElCirculoRoto([
-        {name: "Joe Diamond", shortName: "Joe", elderSignEffect: () => 1},
-        {name: "Diana Stanley", shortName: "Diana", elderSignEffect: () => 2},
+        AHCharacters["JoeDiamond"], AHCharacters["DianaStanley"],
+        // {name: "Joe Diamond", shortName: "Joe", elderSignEffect: () => 1},
+        // {name: "Diana Stanley", shortName: "Diana", elderSignEffect: () => 2},
     ], "normal");
     campaign.addTokensToBagSpec(
         tokenSpecDef(0, 2, true, "Lápida"), // <- La hora bruja: Los inv han aceptado su destino
@@ -294,6 +296,6 @@ export function startAlvaroElCirculoRotoLPDP() {
         // tokenSpecDef(0, 1, true, "Antiguo"),
         // tokenSpecDef(-5, 1, false),
     );
-    campaign.startCampaign(6);
+    campaign.startCampaign(0);
     return campaign;
 }

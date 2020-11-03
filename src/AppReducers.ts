@@ -1,6 +1,6 @@
 import {CombinedState, combineReducers, Reducer} from "redux";
 import {Campaign} from "./tok/Campaign";
-import {Scenario} from "./tok/Scenario";
+import {initContext, IScenarioSpec} from "./tok/Scenario";
 import {incDecContextNatural, ScenarioContext} from "./tok/Token";
 import {startAlvaroElCirculoRotoLPDP} from "./tok/ElCirculoRoto";
 import {
@@ -40,35 +40,29 @@ const  selectedCampaign: Reducer<Campaign, IAppAction> = (state: Campaign = defa
 }
 
 
-const firstScenario = defaultCampaign.getScenario();
-const selectedScenario: Reducer<Scenario, IAppAction> = (state = firstScenario, action: IAppAction) => {
+const firstScenario = defaultCampaign.getScenarioSpec();
+const selectedScenario: Reducer<IScenarioSpec, IAppAction> = (state = firstScenario, action: IAppAction) => {
     switch (action.type) {
         case CHANGE_SCENARIO:
-            const scenarioAction = action as IScenarioAction;
-            return scenarioAction.scenario;
-        case CHANGE_CHARACTER:
-            const charAction = action as ICharacterAction;
-            return state.setCharacterImmutable(charAction.character);
+            return (action as IScenarioAction).scenarioSpec;
         default:
             return state;
     }
 }
 
-const selectedCharacter: Reducer<AHCharacter, IAppAction> = (state = firstScenario.getCharacter(), action: IAppAction) => {
+const selectedCharacter: Reducer<AHCharacter, IAppAction> = (state = defaultCampaign.characters[0], action: IAppAction) => {
     switch (action.type) {
         case CHANGE_CHARACTER:
-            const charAction = action as ICharacterAction;
-            return charAction.character;
+            return (action as ICharacterAction).character;
         default:
             return state;
     }
 }
-
-const gameContext: Reducer<ScenarioContext, IAppAction> = (gameContext = firstScenario.currentContext, action: IAppAction) => {
+const initialContext = initContext(firstScenario.contextSpec);
+const gameContext: Reducer<ScenarioContext, IAppAction> = (gameContext = initialContext, action: IAppAction) => {
     switch (action.type) {
         case CHANGE_SCENARIO:
-            const scenarioAction = action as IScenarioAction;
-            return scenarioAction.scenario.currentContext;
+            return initContext((action as IScenarioAction).scenarioSpec.contextSpec);
         case INC_DEC_CONTEXT_VALUE:
             const contextAction = action as IContextAction & IIncDecAction;
             const key = contextAction.key;

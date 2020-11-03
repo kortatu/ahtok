@@ -1,23 +1,24 @@
 import React from "react";
-import {findValueSpec, Scenario} from "./Scenario";
+import {IContextValueSpec} from "./Scenario";
 import {IconButton, InputLabel, Switch} from "@material-ui/core";
 
-export function ContextValueChanger(props: {name: string, currentValue: number | boolean, scenario: Scenario, setScenario: (scenario: Scenario) => void}) {
-    const contextKey = props.name;
-    const valueSpec = findValueSpec(props.scenario.getContextSpec(), contextKey)!;
+export function ContextValueChanger(props: {
+    currentValue: number | boolean, valueSpec: IContextValueSpec, incDecContextValue: (incDec: boolean) => void, toggleContextValue: () => void}) {
+    const valueSpec = props.valueSpec;
     if (valueSpec.type === "number") {
         return (
             <NumericParamChanger inline={false} name={valueSpec.description} currentValue={props.currentValue as number}
-                                 incValue={() => props.setScenario(props.scenario.incContextValue(contextKey))}
-                                 decValue={() => props.setScenario(props.scenario.decContextValue(contextKey))} />
+                                 incValue={() => props.incDecContextValue(true)}
+                                 decValue={() => props.incDecContextValue(false)} />
         )
     } else {
         return (
             <BooleanParamChanger name={valueSpec.description} currentValue={props.currentValue as boolean}
-                                 toggle={() => props.setScenario(props.scenario.toggleContextValue(contextKey))}/>
+                                 toggle={() => props.toggleContextValue()}/>
         )
     }
 }
+
 export function NumericParamChanger(props: {inline: boolean, name: string, currentValue: number, incValue: () => void, decValue: () => void}) {
     const name = props.name;
     const currentValue = props.currentValue;

@@ -1,6 +1,7 @@
-import {Scenario, IScenarioSpec} from "./Scenario";
+import {IScenarioSpec} from "./Scenario";
 import {addTokens, TokenBagSpec, TokenSpec} from "./Token";
 import {AHCharacter} from "./AHCharacter";
+import {buildElCirculoRotoCampaignSpec} from "./ElCirculoRoto";
 
 export type AHLevel = "easy" | "normal" | "hard" | "expert";
 type IBagSpecByLevel = {
@@ -8,9 +9,17 @@ type IBagSpecByLevel = {
 };
 
 export interface ICampaignSpec {
+    id: string;
     name: string;
     scenarios: IScenarioSpec[];
     bagSpecsByLevel: IBagSpecByLevel;
+}
+
+interface ICampaigns {
+    [key: string]: ICampaignSpec
+}
+export const Campaigns: ICampaigns = {
+    TheCircleUndone: buildElCirculoRotoCampaignSpec() as ICampaignSpec
 }
 
 
@@ -18,14 +27,18 @@ interface ICampaign {
 }
 
 export class Campaign implements ICampaign {
-    private scenarios: Scenario[] = [];
-    private currentBagSpec: TokenBagSpec;
-    private currentScenario = 0;
-    public name: string;
+    public currentScenario = 0;
 
-    constructor(private campaignSpec: ICampaignSpec, public characters: AHCharacter[], level: AHLevel) {
-        this.currentBagSpec = campaignSpec.bagSpecsByLevel[level];
-        this.name = campaignSpec.name;
+    constructor(public name: string,
+                public campaignSpec: ICampaignSpec,
+                public characters: AHCharacter[],
+                public currentBagSpec: TokenBagSpec,
+                currentScenario = 0) {
+        this.startCampaign(currentScenario);
+    }
+
+    public static start(campaignSpec: ICampaignSpec, characters: AHCharacter[], level: AHLevel): Campaign {
+        return new Campaign(campaignSpec.name, campaignSpec, characters, campaignSpec.bagSpecsByLevel[level]);
     }
 
 
@@ -34,22 +47,12 @@ export class Campaign implements ICampaign {
         let scenarioIndex = 0;
         while (scenarioIndex <= scenarioNum) {
             this.currentScenario = scenarioIndex;
-            const scenario = this.buildScenario();
-            this.scenarios.push(scenario);
             scenarioIndex++;
         }
     }
 
-    private buildScenario() {
-        return new Scenario(
-            this.campaignSpec.scenarios[this.currentScenario],
-            this.currentBagSpec,
-            this.characters
-        );
-    }
-
-    getScenario() {
-        return this.scenarios[this.currentScenario];
+    getScenarioSpec() {
+        return this.campaignSpec.scenarios[this.currentScenario];
     }
 
     addTokensToBagSpec(...tokens: TokenSpec[]) {
@@ -60,13 +63,12 @@ export class Campaign implements ICampaign {
         if ((this.currentScenario + 1 ) < this.campaignSpec.scenarios.length) {
             this.currentScenario++;
             // console.log("Current scenario index", this.currentScenario, "name", this.campaignSpec.scenarios[this.currentScenario].name);
-            if (this.currentScenario >= this.scenarios.length) {
+            if (this.currentScenario >= this.campaignSpec.scenarios.length) {
                 // TODO: Modify current bag spec depending on resolution or preparation of new scenario
-                const newScenario = this.buildScenario();
-                this.scenarios.push(newScenario);
+                // advanceScenario
             }
         }
-        return this.getScenario();
+        return this.getScenarioSpec();
     }
 
     // Returns to the previous scenario with the bag as it was
@@ -74,6 +76,6 @@ export class Campaign implements ICampaign {
         if (this.currentScenario  > 0) {
             this.currentScenario--;
         }
-        return this.getScenario();
+        return this.getScenarioSpec();
     }
 }
