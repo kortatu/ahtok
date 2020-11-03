@@ -2,6 +2,7 @@
   "name": "ahtok",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://kortatu.github.io/ahtok",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -21,10 +22,13 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.9",
+    "gh-pages": "^3.1.0",
     "jest": "24.9.0",
     "ts-jest": "24.0.2"
   },
   "scripts": {
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

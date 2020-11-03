@@ -19,29 +19,30 @@ export function ContextValueChanger(props: {
     }
 }
 
-export function NumericParamChanger(props: {inline: boolean, name: string, currentValue: number, incValue: () => void, decValue: () => void}) {
-    const name = props.name;
-    const currentValue = props.currentValue;
+type NumericParamChangerProps =
+    { inline: boolean, name: string, currentValue: number, incValue: () => void, decValue: () => void };
+
+export function NumericParamChanger({inline, name, currentValue, incValue, decValue}: NumericParamChangerProps) {
     const incDecStyle = {verticalAlign: "middle"};
     return (
         <div className="ParamChanger">
-            {props.inline ? <span>{name}</span> : <InputLabel>{name}</InputLabel>}
-            <IconButton className="IconAction material-icons" style={incDecStyle} onClick={_ => props.incValue()}>arrow_circle_up</IconButton>
+            {inline ? <span>{name}</span> : <InputLabel>{name}</InputLabel>}
+            <IconButton className="IconAction material-icons" style={incDecStyle} onClick={_ => incValue()}>arrow_circle_up</IconButton>
             {currentValue}
-            <IconButton className="IconAction material-icons" style={incDecStyle} onClick={_ => props.decValue()}>arrow_circle_down</IconButton>
+            <IconButton className="IconAction material-icons" style={incDecStyle} onClick={_ => decValue()}>arrow_circle_down</IconButton>
         </div>
     )
 }
 
-export function BooleanParamChanger(props: {name: string, currentValue: boolean, toggle: () => void}) {
-    const name = props.name;
-    const currentValue = props.currentValue;
+type BooleanParamChangerProps = { name: string, currentValue: boolean, toggle: () => void };
+
+export function BooleanParamChanger({name, currentValue, toggle}: BooleanParamChangerProps) {
     return (
         <div className="ParamChanger">
             <InputLabel>{name}:</InputLabel>
             <Switch
                 checked={currentValue}
-                onChange={_ => props.toggle()}
+                onChange={_ => toggle()}
                 color="primary"
                 name="name"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
