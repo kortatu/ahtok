@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/ahtok/static/css/main.7dea9350.chunk.css",
+    "main.js": "/ahtok/static/js/main.978ab4c3.chunk.js",
+    "main.js.map": "/ahtok/static/js/main.978ab4c3.chunk.js.map",
+    "runtime-main.js": "/ahtok/static/js/runtime-main.5833bf12.js",
+    "runtime-main.js.map": "/ahtok/static/js/runtime-main.5833bf12.js.map",
+    "static/js/2.c49f70af.chunk.js": "/ahtok/static/js/2.c49f70af.chunk.js",
+    "static/js/2.c49f70af.chunk.js.map": "/ahtok/static/js/2.c49f70af.chunk.js.map",
+    "index.html": "/ahtok/index.html",
+    "precache-manifest.300a017554f92884dd4f35e4686ff73a.js": "/ahtok/precache-manifest.300a017554f92884dd4f35e4686ff73a.js",
+    "service-worker.js": "/ahtok/service-worker.js",
+    "static/css/main.7dea9350.chunk.css.map": "/ahtok/static/css/main.7dea9350.chunk.css.map",
+    "static/js/2.c49f70af.chunk.js.LICENSE.txt": "/ahtok/static/js/2.c49f70af.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/ahtok/static/media/nah09_feature.b7e8e5d1.jpg",
+    "static/media/Tok.css": "/ahtok/static/media/tombStone.ce2f7079.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5833bf12.js",
+    "static/js/2.c49f70af.chunk.js",
+    "static/css/main.7dea9350.chunk.css",
+    "static/js/main.978ab4c3.chunk.js"
+  ]
+}
