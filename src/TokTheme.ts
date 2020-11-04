@@ -13,9 +13,11 @@ export function tokTheme() {
         '"Segoe UI Emoji"',
         '"Segoe UI Symbol"',
     ];
+    const birminghamFontFamily = "Birmingham";
+    const uglyQuaFontFamily = 'UglyQua';
     const theme = responsiveFontSizes(createMuiTheme({
         typography: {
-            fontFamily: ['UglyQua'].concat(baseFontFamily).join(','),
+            fontFamily: [uglyQuaFontFamily].concat(baseFontFamily).join(','),
             fontSize: 14
         },
         palette: {
@@ -29,7 +31,8 @@ export function tokTheme() {
             }
         }
     }));
-    const headerFontFamily = ["Birmingham"].concat(baseFontFamily).join(',');
+
+    const headerFontFamily = [uglyQuaFontFamily].concat(baseFontFamily).join(',');
     return {
         theme,
         headerFontFamily

@@ -264,7 +264,7 @@ function AnteElTronoNegro(): IScenarioSpec {
 export function buildElCirculoRotoCampaignSpec(): ICampaignSpec {
     return {
         id: "TheCircleUndone",
-        name: "El ci´rculo roto",
+        name: "El círculo roto",
         scenarios: [
             Prologo(),
             LaHoraBruja(), ALasPuertasDeLaMuerte(), ElNombreSecreto(), LaPagaDelPecado(),
