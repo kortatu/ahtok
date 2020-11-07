@@ -11,4 +11,5 @@ export interface AHCharacter {
 export const AHCharacters: {[key: string]: AHCharacter} = {
     JoeDiamond: {id: "JoeDiamond", name: "Joe Diamond", shortName: "Joe", elderSignEffect: () => 1},
     DianaStanley: {id: "DianaStanley", name: "Diana Stanley", shortName: "Diana", elderSignEffect: () => 2},
+    LeoAnderson: {id: "LeoAnderson", name: "Leo Anderson", shortName: "Leo", elderSignEffect: () => 2}
 }

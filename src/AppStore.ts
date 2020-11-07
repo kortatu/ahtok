@@ -8,6 +8,7 @@ import {startAlvaroElCirculoRotoLPDP} from "./tok/ElCirculoRoto";
 import {ScenarioContext, TokenBagSpec} from "./tok/Token";
 import {AHCharacters} from "./tok/AHCharacter";
 import {initContext} from "./tok/Scenario";
+import {startAlvaroLaEraOlvidada} from "./tok/LaEraOlvidada";
 
 
 interface IStorageStage {
@@ -27,7 +28,7 @@ function loadStorageStage(): IStorageStage | undefined {
 
 function initialState():AppState {
     function defaultCampaign() {
-        return startAlvaroElCirculoRotoLPDP();
+        return startAlvaroLaEraOlvidada();
     }
     const preloadCampaign = loadStorageStage();
     if (preloadCampaign) {
