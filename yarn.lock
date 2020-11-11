@@ -1102,7 +1102,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.12.1", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.1", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.12.5"
   resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha1-QQ5+SHRB4bNgwpvnFdhw2bmFiC4=
@@ -3425,6 +3425,11 @@ cosmiconfig@^6.0.0:
     path-type "^4.0.0"
     yaml "^1.7.2"
 
+country-flag-icons@^1.2.6:
+  version "1.2.6"
+  resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/country-flag-icons/-/country-flag-icons-1.2.6.tgz#1953df2bcab0683e670b8ecdc57503444cd6863d"
+  integrity sha1-GVPfK8qwaD5nC47NxXUDREzWhj0=
+
 create-ecdh@^4.0.0:
   version "4.0.4"
   resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/create-ecdh/-/create-ecdh-4.0.4.tgz#d6e7f4bffa66736085a0762fd3a632684dabcc4e"
@@ -5399,6 +5404,13 @@ html-minifier-terser@^5.0.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
+html-parse-stringify2@2.0.1:
+  version "2.0.1"
+  resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/html-parse-stringify2/-/html-parse-stringify2-2.0.1.tgz#dc5670b7292ca158b7bc916c9a6735ac8872834a"
+  integrity sha1-3FZwtyksoVi3vJFsmmc1rIhyg0o=
+  dependencies:
+    void-elements "^2.0.1"
+
 html-webpack-plugin@4.0.0-beta.11:
   version "4.0.0-beta.11"
   resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/html-webpack-plugin/-/html-webpack-plugin-4.0.0-beta.11.tgz#3059a69144b5aecef97708196ca32f9e68677715"
@@ -5510,6 +5522,13 @@ hyphenate-style-name@^1.0.3:
   version "1.0.4"
   resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz#691879af8e220aea5750e8827db4ef62a54e361d"
   integrity sha1-aRh5r44iCupXUOiCfbTvYqVONh0=
+
+i18next@^19.8.3:
+  version "19.8.3"
+  resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/i18next/-/i18next-19.8.3.tgz#10df7222db8c23389b13bceb9ba67a5e20a0241e"
+  integrity sha1-EN9yItuMIzibE7zrm6Z6XiCgJB4=
+  dependencies:
+    "@babel/runtime" "^7.12.0"
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"
@@ -9012,6 +9031,14 @@ react-error-overlay@^6.0.7:
   resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/react-error-overlay/-/react-error-overlay-6.0.8.tgz#474ed11d04fc6bda3af643447d85e9127ed6b5de"
   integrity sha1-R07RHQT8a9o69kNEfYXpEn7Wtd4=
 
+react-i18next@^11.7.3:
+  version "11.7.3"
+  resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/react-i18next/-/react-i18next-11.7.3.tgz#256461c46baf5b3208c3c6860ca4e569fc7ed053"
+  integrity sha1-JWRhxGuvWzIIw8aGDKTlafx+0FM=
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    html-parse-stringify2 "2.0.1"
+
 react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -10834,6 +10861,11 @@ vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
+
+void-elements@^2.0.1:
+  version "2.0.1"
+  resolved "https://pkgs.dev.azure.com/haivisionpd/13fd3df0-5f94-4eb3-9893-14fe57ded893/_packaging/PD-Artifacts/npm/registry/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
+  integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
 w3c-hr-time@^1.0.1:
   version "1.0.2"

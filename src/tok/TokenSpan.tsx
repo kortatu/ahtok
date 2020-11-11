@@ -2,7 +2,7 @@ import {TokenSpec} from "./Token";
 import React, {useState} from "react";
 import {Fade} from "@material-ui/core";
 
-export function TokenSpan(props: {token: TokenSpec, onClick?: (token: TokenSpec) => void, fadeOut: boolean, fadeOutFadeIn?: boolean}){
+export function TokenSpan(props: {token: TokenSpec, onClick?: (token: TokenSpec) => void, fadeOut?: boolean, fadeOutFadeIn?: boolean}){
     const [fadeIn, setFadeIn] = useState(true);
     const handler = () => {
         if (props.onClick) {

@@ -7,6 +7,7 @@ import {CurrentSkillTestChanger} from "./SkillTestChanger";
 import {SkillTest} from "./SkillTest";
 import {connect} from "react-redux";
 import {AppState} from "../AppState";
+import {useTranslation} from "react-i18next";
 
 function mapStateToProps(state: AppState, ownProps: {tokenBag: TokenBag}) {
     return {
@@ -18,11 +19,12 @@ function mapStateToProps(state: AppState, ownProps: {tokenBag: TokenBag}) {
 export const CurrentPassZone = connect(mapStateToProps)(PassZone);
 
 export function PassZone({passZone, skillTest}: {passZone: TokenBagPassZone, skillTest: SkillTest}) {
+    const { t } = useTranslation();
     const lines = passZoneLines(passZone, skillTest.skill, skillTest.test);
     return (
         <Grid container className="PassZone" alignItems={"center"}>
-            <Grid item xs={12} sm={8} md={6} >
-            <Typography variant="h4">Pass zone</Typography>
+            <Grid item xs={12} sm={7} md={6} >
+            <Typography variant="h4">{t('Pass zone')}</Typography>
             <hr />
             <Grid container direction="column">
                 {
@@ -35,7 +37,7 @@ export function PassZone({passZone, skillTest}: {passZone: TokenBagPassZone, ski
             </Grid>
             <hr />
             </Grid>
-            <Grid item xs={12} sm={4} md={6} style={{textAlign: "center"}}>
+            <Grid item xs={12} sm={5} md={6} style={{textAlign: "center"}}>
                 <CurrentSkillTestChanger />
             </Grid>
         </Grid>

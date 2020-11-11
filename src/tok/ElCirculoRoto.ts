@@ -61,7 +61,10 @@ function expert (): TokenBagSpec {
 
 function Prologo(): IScenarioSpec {
     return {
-        name: "Desaparición en la finca del crepúsculo",
+        name: "Disappearance at the Twilight Estate",
+        translations: {
+            "es": "Desaparición en la finca del crepúsculo",
+        },
         scenarioEffectSpec: [
             {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
             {name: "Calavera", effect: () => -3},
@@ -74,7 +77,10 @@ function Prologo(): IScenarioSpec {
 
 function LaHoraBruja(): IScenarioSpec {
     return {
-        name: "La hora bruja",
+        name: "The Witching Hour",
+        translations: {
+            "es": "La hora bruja"
+        },
         scenarioEffectSpec: [
             { name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag) },
             { name: "Calavera", effect: () => -1 },
@@ -88,69 +94,94 @@ function LaHoraBruja(): IScenarioSpec {
 }
 
 function ALasPuertasDeLaMuerte(): IScenarioSpec {
+    const HAUNTED_LOCATION = "Haunted location";
     return {
-        name: "A las puertas de la muerte",
+        name: "At Death's Doorstep",
+        translations: {
+            "es": "A las puertas de la muerte",
+        },
         scenarioEffectSpec: [
             { name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag) },
-            { name: "Calavera", effect: (tokenBag) => tokenBag.context["Lugar Embrujado"] ? -3 : -1 },
+            { name: "Calavera", effect: (tokenBag) => tokenBag.context[HAUNTED_LOCATION] ? -3 : -1 },
             { name: "Lápida", effect: () => -2 },
             { name: "Antiguo", effect: () => -2 },
         ],
         contextSpec: {
             valuesSpec: [{
-                name: "Lugar Embrujado",
-                description: "Lugar Embrujado",
+                name: HAUNTED_LOCATION,
+                description: "Haunted location",
                 type: "boolean",
-                initialValue: false
+                initialValue: false,
+                translations: {
+                    "es": "Lugar embrujado"
+                }
             }]
         }
     }
 }
 
 function ElNombreSecreto(): IScenarioSpec {
+    const EXTRADIMENSIONAL_LOCATION = "Extradimensional location";
     return {
-        name: "El nombre secreto",
+        name: "The Secret Name",
+        translations: {
+            "es": "El nombre secreto",
+        },
         scenarioEffectSpec: [
             { name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag) },
-            { name: "Calavera", effect: (tokenBag) => tokenBag.context["Lugar Extradimensional"] ? -3 : -1 },
+            { name: "Calavera", effect: (tokenBag) => tokenBag.context[EXTRADIMENSIONAL_LOCATION] ? -3 : -1 },
             { name: "Sectario", effect: tokenBag => tokenAverage(seal(tokenBag, "Sectario"))},
             { name: "Lápida", effect: () => -2 },
             { name: "Antiguo", effect: () => -3 },
         ],
         contextSpec: {
             valuesSpec: [{
-                name: "Lugar Extradimensional",
-                description: "Lugar Extradimensional",
+                name: EXTRADIMENSIONAL_LOCATION,
+                description: "Extradimensional location",
                 type: "boolean",
-                initialValue: false
+                initialValue: false,
+                translations: {
+                    "es": "Lugar Extradimensional"
+                }
             }]
         }
     }
 }
 
 function LaPagaDelPecado(): IScenarioSpec {
+    const UNFINISHED_BUSINESS = "Unfinished business";
+    const FIGHTING_EVADING_HERETIC = "Fighting/evading Heretic";
     return {
-        name: "La paga del pecado",
+        name: "The Wages of Sin",
+        translations: {
+            "es": "La paga del pecado",
+        },
         scenarioEffectSpec: [
             {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
-            {name: "Calavera", effect: (tokenBag) => 0 - (tokenBag.context["Asuntos inconclusos"] as number)},
-            {name: "Sectario", effect: (tokenBag) => tokenBag.context["Atacando/Evitando Hereje"] ? -4 : -3 },
+            {name: "Calavera", effect: (tokenBag) => 0 - (tokenBag.context[UNFINISHED_BUSINESS] as number)},
+            {name: "Sectario", effect: (tokenBag) => tokenBag.context[FIGHTING_EVADING_HERETIC] ? -4 : -3 },
             {name: "Lápida", effect: () => -3},
             {name: "Antiguo", effect: () => -2},
         ],
         contextSpec: {
             valuesSpec: [
                 {
-                name: "Asuntos inconclusos",
-                description: "Asuntos inconclusos",
-                type: "number",
-                initialValue: 0
-                 },
+                    name: UNFINISHED_BUSINESS,
+                    description: "Unfinished business",
+                    type: "number",
+                    initialValue: 0,
+                    translations: {
+                        "es": "Asuntos inconclusos",
+                    }
+                },
                 {
-                    name: "Atacando/Evitando Hereje",
-                    description: "Atacando/Evitando Hereje",
+                    name: FIGHTING_EVADING_HERETIC,
+                    description: "Fighting/evading Heretic",
                     type: "boolean",
-                    initialValue: false
+                    initialValue: false,
+                    translations: {
+                        "es": "Atacando/Evitando Hereje"
+                    }
                 }
             ]
         }
@@ -158,9 +189,12 @@ function LaPagaDelPecado(): IScenarioSpec {
 }
 
 function PorElBienComun(): IScenarioSpec {
-    const MAXIMA_PERDICION = "Máxima Perdición";
+    const MAXIMA_PERDICION = "Max Doom";
     return {
-        name: "Por el bien común",
+        name: "For the Greater Good",
+        translations: {
+            "es": "Por el bien común",
+        },
         scenarioEffectSpec: [
             {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
             {name: "Calavera", effect: (tokenBag) => 0 - (tokenBag.context[MAXIMA_PERDICION] as number)},
@@ -171,18 +205,24 @@ function PorElBienComun(): IScenarioSpec {
         contextSpec: {
             valuesSpec: [{
                 name: MAXIMA_PERDICION,
-                description: MAXIMA_PERDICION,
+                description: "Highest number of doom on a Cultist",
                 type: "number",
-                initialValue: 0
+                initialValue: 0,
+                translations: {
+                    "es": "Máxima perdición"
+                }
             }]
         }
     };
 }
 
 function UnionYDesilusion(): IScenarioSpec {
-    const ACCION_CIRCULO = "Acción círculo";
+    const ACCION_CIRCULO = "Circle action";
     return {
-        name: "Unión y desilusión",
+        name: "Union and Disillusion",
+        translations: {
+            "es": "Unión y desilusión"
+        },
         scenarioEffectSpec: [
             {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
             {name: "Calavera", effect: (tokenBag) =>
@@ -194,22 +234,28 @@ function UnionYDesilusion(): IScenarioSpec {
         contextSpec: {
             valuesSpec: [{
                 name: ACCION_CIRCULO,
-                description: ACCION_CIRCULO,
+                description: "This skill test is a circle action",
                 type: "boolean",
-                initialValue: false
+                initialValue: false,
+                translations: {
+                    "es": "Acción círculo"
+                }
             }]
         }
     };
 }
 
 function EnLasGarrasDelCaos(): IScenarioSpec {
-    const PERDICION_Y_BRECHA = "Perdición y brecha en tu lugar";
+    const PERDICION_Y_BRECHA = "Doom and breaches on your location";
     const getPerdicionYBrecha = (tokenBag: TokenBag) => {
         return tokenBag.context[PERDICION_Y_BRECHA] as number;
     }
 
     return {
-        name: "En las garras del caos",
+        name: "In the Clutches of Chaos",
+        translations: {
+          "es": "En las garras del caos",
+        },
         scenarioEffectSpec: [
             {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
             {name: "Calavera", effect: (tokenBag) => 0 - getPerdicionYBrecha(tokenBag)},
@@ -227,22 +273,28 @@ function EnLasGarrasDelCaos(): IScenarioSpec {
         contextSpec: {
             valuesSpec: [{
                 name: PERDICION_Y_BRECHA,
-                description: PERDICION_Y_BRECHA,
+                description: "Total amount of doom and breaches on your location",
                 type: "number",
-                initialValue: 0
+                initialValue: 0,
+                translations: {
+                    "es": "Perdición y brecha en tu lugar"
+                }
             }]
         }
     };
 }
 
 function AnteElTronoNegro(): IScenarioSpec {
-    const PERDICION_EN_AZATHOTH = "Perdición en Azathoth";
+    const PERDICION_EN_AZATHOTH = "Doom on Azathoth";
     const getHalfDoomInAzathot = (tokenBag: TokenBag) => {
         return Math.ceil((tokenBag.context[PERDICION_EN_AZATHOTH] as number) / 2);
     }
 
     return {
-        name: "Ante el trono negro",
+        name: "Before the Black Throne",
+        translations: {
+            "es": "Ante el trono negro"
+        },
         scenarioEffectSpec: [
             {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
             {name: "Calavera", effect: (tokenBag) => 0 - Math.max(2, getHalfDoomInAzathot(tokenBag))},
@@ -255,7 +307,10 @@ function AnteElTronoNegro(): IScenarioSpec {
                 name: PERDICION_EN_AZATHOTH,
                 description: PERDICION_EN_AZATHOTH,
                 type: "number",
-                initialValue: 0
+                initialValue: 0,
+                translations: {
+                    "es": "Perdición en Azathoth"
+                }
             }]
         }
     };
@@ -264,7 +319,7 @@ function AnteElTronoNegro(): IScenarioSpec {
 export function buildElCirculoRotoCampaignSpec(): ICampaignSpec {
     return {
         id: "TheCircleUndone",
-        name: "El círculo roto",
+        name: "The Circle Undone",
         scenarios: [
             Prologo(),
             LaHoraBruja(), ALasPuertasDeLaMuerte(), ElNombreSecreto(), LaPagaDelPecado(),
@@ -275,6 +330,9 @@ export function buildElCirculoRotoCampaignSpec(): ICampaignSpec {
             normal: normal(),
             hard: hard(),
             expert: expert(),
+        },
+        translations: {
+            "es": "El círculo roto"
         }
     }
 }

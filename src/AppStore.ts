@@ -25,6 +25,21 @@ function loadStorageStage(): IStorageStage | undefined {
 }
 
 
+const LANGUAGE_STORE_KEY = "ahtok.kortsoft.net/lang";
+
+export function loadCurrentLang() {
+    const appLang = localStorage.getItem(LANGUAGE_STORE_KEY);
+    if (appLang === null) {
+        let userLang: string = navigator.language;
+        const dashPosition = userLang.indexOf("-");
+        if (dashPosition > -1) {
+            userLang = userLang.substring(0, dashPosition);
+        }
+        return userLang;
+    }
+    return appLang;
+}
+
 function initialState():AppState {
     function defaultCampaign() {
         return startAlvaroElCirculoRotoLPDP();
@@ -66,6 +81,11 @@ export let store: Store<AppState, IAppAction> =
 
 export function resetStore() {
     store = createStore<AppState, IAppAction, {}, {}>(appReducers);
+}
+
+export function saveLang(lang: string) {
+    localStorage.setItem(LANGUAGE_STORE_KEY, lang);
+    window.location.reload();
 }
 
 store.subscribe(() => {

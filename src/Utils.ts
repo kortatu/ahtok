@@ -20,3 +20,7 @@ export function nonAscii(aString: string) {
     const ascii = /^[ -~]+$/;
     return !ascii.test(aString);
 }
+
+export interface Translation {
+    [k: string]: string
+}

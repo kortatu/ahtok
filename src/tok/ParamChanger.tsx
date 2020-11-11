@@ -1,19 +1,21 @@
 import React from "react";
 import {IContextValueSpec} from "./Scenario";
 import {IconButton, InputLabel, Switch} from "@material-ui/core";
+import {useTranslation} from "react-i18next";
 
 export function ContextValueChanger(props: {
     currentValue: number | boolean, valueSpec: IContextValueSpec, incDecContextValue: (incDec: boolean) => void, toggleContextValue: () => void}) {
     const valueSpec = props.valueSpec;
+    const { t } = useTranslation();
     if (valueSpec.type === "number") {
         return (
-            <NumericParamChanger inline={false} name={valueSpec.description} currentValue={props.currentValue as number}
+            <NumericParamChanger inline={false} name={t(valueSpec.name)} currentValue={props.currentValue as number}
                                  incValue={() => props.incDecContextValue(true)}
                                  decValue={() => props.incDecContextValue(false)} />
         )
     } else {
         return (
-            <BooleanParamChanger name={valueSpec.description} currentValue={props.currentValue as boolean}
+            <BooleanParamChanger name={t(valueSpec.name)} currentValue={props.currentValue as boolean}
                                  toggle={() => props.toggleContextValue()}/>
         )
     }

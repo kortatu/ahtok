@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {AppState} from "../AppState";
 import {Dispatch} from "redux";
 import {decreaseSkill, decreaseTest, increaseSkill, increaseTest} from "../AppActions";
+import {useTranslation} from "react-i18next";
 
 const mapStateToProps = (state: AppState) => {
     return {
@@ -28,10 +29,11 @@ function SkillTestChanger(props: {skill: number, test: number,
                                   incSkill: () => void, decSkill: () => void,
                                   incTest: () => void, decTest: () => void}) {
     const {skill, test, incSkill, decSkill, incTest, decTest} = props;
+    const { t } = useTranslation();
     return (
         <Typography variant="h5">
-            <NumericParamChanger inline={true} name="Skill" currentValue={skill} incValue={incSkill} decValue={decSkill}/>
-            <NumericParamChanger inline={true} name="Test" currentValue={test} incValue={incTest} decValue={decTest}/>
+            <NumericParamChanger inline={true} name={t('Skill')} currentValue={skill} incValue={incSkill} decValue={decSkill}/>
+            <NumericParamChanger inline={true} name={t('Test')} currentValue={test} incValue={incTest} decValue={decTest}/>
         </Typography>
     );
 }

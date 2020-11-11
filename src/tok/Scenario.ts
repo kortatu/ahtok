@@ -1,9 +1,11 @@
 import {ScenarioContext, ScenarioEffectSpecs} from "./Token";
+import {Translation} from "../Utils";
 
 export interface IScenarioSpec {
     name: string;
     scenarioEffectSpec: ScenarioEffectSpecs;
-    contextSpec: IScenarioContextSpec
+    contextSpec: IScenarioContextSpec;
+    translations: Translation;
 }
 
 export function initContext(contextSpec: IScenarioContextSpec): ScenarioContext {
@@ -27,4 +29,5 @@ export interface IContextValueSpec {
     description: string;
     initialValue: number | boolean;
     type: IContextValueType;
+    translations: Translation;
 }

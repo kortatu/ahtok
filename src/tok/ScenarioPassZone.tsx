@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {AppState, buildBagFromState} from "../AppState";
 import {CurrentScenarioContextManager} from "./ContextManager";
 import {BagDisplay, CurrentTokenBagManager} from "./TokenBag";
+import {useTranslation} from "react-i18next";
 
 
 const mapStateToProps = (state: AppState) => ({tokenBag: buildBagFromState(state), scenario: state.selectedScenario});
@@ -16,10 +17,11 @@ export const CurrentScenarioPassZone = connect(mapStateToProps)(ScenarioPassZone
 
 export function ScenarioPassZone({tokenBag, scenario}: {tokenBag: TokenBag, scenario: IScenarioSpec}) {
     const [open, setOpen] = useState<boolean>(false);
+    const { t } = useTranslation();
     return (
         <div className="Scenario">
             <div className="ScenarioInfo">
-                <Typography variant="h3">{scenario.name}</Typography>
+                <Typography variant="h3">{t(scenario.name)}</Typography>
                 <CurrentScenarioContextManager />
                 <CurrentCharacterSelector />
             </div>
@@ -30,7 +32,7 @@ export function ScenarioPassZone({tokenBag, scenario}: {tokenBag: TokenBag, scen
                 <CurrentTokenBagManager tokenBag={tokenBag}/>
             </Modal>
             <Box textAlign={"center"}>
-                <Button color="secondary" onClick={() => setOpen(true)}>Gestionar bolsa del caos</Button>
+                <Button color="secondary" onClick={() => setOpen(true)}>{t('Manage chaos bag')}</Button>
             </Box>
         </div>
     );
