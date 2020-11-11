@@ -42,7 +42,8 @@ function initialState():AppState {
             selectedScenario: campaign.getScenarioSpec(),
             selectedCharacter: character,
             skillTest: {skill: 4, test: 2} as SkillTest,
-            gameContext: preloadCampaign.currentContext
+            gameContext: preloadCampaign.currentContext,
+            bagSpec: preloadCampaign.bagSpec
         }
     } else {
         const campaign = defaultCampaign();
@@ -52,14 +53,14 @@ function initialState():AppState {
             selectedScenario: currentScenarioSpec,
             selectedCharacter: campaign.characters[0],
             skillTest: {skill: 4, test: 2} as SkillTest,
-            gameContext: initContext(currentScenarioSpec.contextSpec)
+            gameContext: initContext(currentScenarioSpec.contextSpec),
+            bagSpec: campaign.currentBagSpec,
         };
     }
 
 }
 
 const appState = initialState();
-console.log("Loaded initial state", appState);
 export let store: Store<AppState, IAppAction> =
     createStore<AppState, IAppAction, {}, {}>(appReducers, appState);
 
@@ -72,7 +73,7 @@ store.subscribe(() => {
     const newStorageCampaign: IStorageStage = {
         name: campaign.name,
         campaignSpecId: campaign.campaignSpec.id,
-        bagSpec: campaign.currentBagSpec,
+        bagSpec: store.getState().bagSpec,
         characters: campaign.characters.map(c => c.id),
         currentScenario: campaign.currentScenario,
         currentCharacter: store.getState().selectedCharacter.id,

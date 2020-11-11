@@ -32,9 +32,11 @@ export function tokTheme() {
         }
     }));
 
-    const headerFontFamily = [uglyQuaFontFamily].concat(baseFontFamily).join(',');
+    const headerFontFamily = [birminghamFontFamily].concat(baseFontFamily).join(',');
+    const headerFontFamilyNonAscii = [uglyQuaFontFamily].concat(baseFontFamily).join(',');
     return {
         theme,
-        headerFontFamily
+        headerFontFamily,
+        headerFontFamilyNonAscii
     };
 }

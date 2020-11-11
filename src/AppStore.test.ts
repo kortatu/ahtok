@@ -1,15 +1,18 @@
 import "jest";
 import {resetStore, store} from "./AppStore";
 import {
+    addToken,
     advanceScenario,
     changeCharacter,
     changeScenario,
     changeSkill,
     changeTest,
     getBackScenario,
-    increaseSkill
+    increaseSkill, removeToken
 } from "./AppActions";
 import {repeat} from "./Utils";
+import {buildBagFromState} from "./AppState";
+import {addTokens, tokenSpecDef, tokensWithValue} from "./tok/Token";
 
 describe('Store tests', () => {
     it('Basic Store test', () => {
@@ -56,20 +59,6 @@ describe('Store tests', () => {
         expect(store.getState().gameContext).toBe(newContext);
     });
 
-    it('Changes the current scenario when campaign advances', () => {
-        const currentScenario = store.getState().selectedScenario;
-        store.dispatch(advanceScenario());
-        store.dispatch(changeScenario(store.getState().selectedCampaign.getScenario()));
-        expect(store.getState().selectedScenario).not.toBe(currentScenario);
-    });
-
-    it('Changes the current scenario when going back scenario', () => {
-        const currentScenario = store.getState().selectedScenario;
-        store.dispatch(getBackScenario());
-        store.dispatch(changeScenario(store.getState().selectedCampaign.getScenario()));
-        expect(store.getState().selectedScenario).not.toBe(currentScenario);
-    });
-
     it('Goes to the same scenario after advancing and getting back scenario', () => {
         const currentScenario = store.getState().selectedScenario;
         store.dispatch(advanceScenario());
@@ -77,31 +66,31 @@ describe('Store tests', () => {
         expect(store.getState().selectedScenario).toBe(currentScenario);
     });
 
-    it('Changes the current character on the scenario', () => {
+    it('Changes current bag when adding tokens to the bag spec', () => {
         resetStore();
-        const currentScenario = store.getState().selectedScenario;
-        const campaign = store.getState().selectedCampaign;
-        const characters = campaign.characters;
-        expect(characters[1]).not.toBe(currentScenario.getCharacter());
-        store.dispatch(changeCharacter(characters[1]));
-        const newCharacter = store.getState().selectedCharacter
-        expect(newCharacter).toBe(characters[1]);
-        expect(store.getState().selectedCharacter).toBe(newCharacter);
+        const currentBag = buildBagFromState(store.getState());
+        store.dispatch(addToken(
+            tokenSpecDef(-5, 1,  false)));
+        const newBag = buildBagFromState(store.getState());
+        const minus5Before = tokensWithValue(currentBag, -5);
+        const minus5After = tokensWithValue(newBag, -5);
+        expect(minus5After.length).toBeGreaterThan(minus5Before.length);
     });
 
-    it('Changes the current bag when changing character', () => {
+    it('Changes current bag when removing tokens to the bag spec', () => {
         resetStore();
-        const currentScenario = store.getState().selectedScenario;
-        const campaign = store.getState().selectedCampaign;
-        const characters = campaign.characters;
-        // Expect Joe's bag
-        expect(currentScenario.tokenBagPassZone().get(1)?.tokens).toHaveLength(2);
-        store.dispatch(changeCharacter(characters[1])); // changed to Diana
-        const newCharacter = store.getState().selectedCharacter
-        const newScenario = store.getState().selectedScenario;
-        const newScenarioBag = newScenario.tokenBagPassZone();
-        expect(newScenario.getCharacter()).toBe(characters[1]);
-        expect(newScenarioBag.get(1)).toBeDefined();
-        expect(newScenarioBag.get(1)?.tokens).toHaveLength(1);
+        const currentBag = buildBagFromState(store.getState());
+        store.dispatch(addToken(
+            tokenSpecDef(-5, 1,  false)));
+        const secondBag = buildBagFromState(store.getState());
+        store.dispatch(removeToken(
+            tokenSpecDef(-5, 1,  false)));
+        const newBag = buildBagFromState(store.getState());
+        const minus5Before = tokensWithValue(currentBag, -5);
+        const minus5Second = tokensWithValue(secondBag, -5);
+        const minus5After = tokensWithValue(newBag, -5);
+        expect(minus5Second.length).toBeGreaterThan(minus5Before.length);
+        expect(minus5After.length).toBeLessThan(minus5Second.length);
+        expect(minus5After.length).toBe(minus5Before.length);
     });
 });

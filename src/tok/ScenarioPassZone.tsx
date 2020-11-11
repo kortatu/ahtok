@@ -1,13 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import {IScenarioSpec} from "./Scenario";
 import {CurrentPassZone} from "./PassZone";
-import {allTokens, TokenBag, tokenFloatAverage} from "./Token";
-import {TokenSpan} from "./TokenSpan";
-import {Typography} from "@material-ui/core";
+import {TokenBag} from "./Token";
+import {Box, Button, Modal, Typography} from "@material-ui/core";
 import {CurrentCharacterSelector} from "./CharacterSelector";
 import {connect} from "react-redux";
 import {AppState, buildBagFromState} from "../AppState";
 import {CurrentScenarioContextManager} from "./ContextManager";
+import {BagDisplay, CurrentTokenBagManager} from "./TokenBag";
 
 
 const mapStateToProps = (state: AppState) => ({tokenBag: buildBagFromState(state), scenario: state.selectedScenario});
@@ -15,6 +15,7 @@ const mapStateToProps = (state: AppState) => ({tokenBag: buildBagFromState(state
 export const CurrentScenarioPassZone = connect(mapStateToProps)(ScenarioPassZone);
 
 export function ScenarioPassZone({tokenBag, scenario}: {tokenBag: TokenBag, scenario: IScenarioSpec}) {
+    const [open, setOpen] = useState<boolean>(false);
     return (
         <div className="Scenario">
             <div className="ScenarioInfo">
@@ -23,19 +24,14 @@ export function ScenarioPassZone({tokenBag, scenario}: {tokenBag: TokenBag, scen
                 <CurrentCharacterSelector />
             </div>
             <CurrentPassZone tokenBag={tokenBag}/>
-            <BagDisplay tokenBag={tokenBag} />
+
+            <BagDisplay tokenBag={tokenBag} onClick={() => setOpen(true)} fadeOutTokens={false}/>
+            <Modal open={open} onClose={() => setOpen(false)} aria-labelledby="bag-management-title">
+                <CurrentTokenBagManager tokenBag={tokenBag}/>
+            </Modal>
+            <Box textAlign={"center"}>
+                <Button color="secondary" onClick={() => setOpen(true)}>Gestionar bolsa del caos</Button>
+            </Box>
         </div>
     );
 }
-
-function BagDisplay({tokenBag}: {tokenBag: TokenBag}) {
-    return <div className="BagDisplay">
-        <Typography>Bag average: {tokenFloatAverage(tokenBag)}</Typography>
-        <p className="TokenStrip">
-            {allTokens(tokenBag).map((token, index) => (
-                <TokenSpan key={index} token={token}/>
-            ))}
-        </p>
-    </div>
-}
-

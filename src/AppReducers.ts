@@ -1,9 +1,16 @@
 import {CombinedState, combineReducers, Reducer} from "redux";
 import {Campaign} from "./tok/Campaign";
 import {initContext, IScenarioSpec} from "./tok/Scenario";
-import {incDecContextNatural, ScenarioContext} from "./tok/Token";
+import {
+    addTokens,
+    incDecContextNatural,
+    removeToken,
+    ScenarioContext,
+    TokenBagSpec
+} from "./tok/Token";
 import {startAlvaroElCirculoRotoLPDP} from "./tok/ElCirculoRoto";
 import {
+    ADD_TOKEN,
     CHANGE_CHARACTER,
     CHANGE_SCENARIO,
     CHANGE_SKILL,
@@ -13,9 +20,9 @@ import {
     IContextAction,
     IIncDecAction,
     INC_DEC_CONTEXT_VALUE,
-    IScenarioAction,
+    IScenarioAction, ITokenAction,
     NEXT_SCENARIO,
-    PREV_SCENARIO,
+    PREV_SCENARIO, REMOVE_TOKEN,
     TOGGLE_CONTEXT_VALUE
 } from "./AppActions";
 import {AppState} from "./AppState";
@@ -97,6 +104,18 @@ const skillTest: Reducer<SkillTest, IAppAction> = (state = initialSkillTest, act
     }
 }
 
+const bagSpec: Reducer<TokenBagSpec, IAppAction> = (state = defaultCampaign.currentBagSpec, action) => {
+    const tokenAction = action as ITokenAction;
+    switch (action.type) {
+        case ADD_TOKEN:
+            return addTokens(state, tokenAction.tokenSpec);
+        case REMOVE_TOKEN:
+            return removeToken(state, tokenAction.tokenSpec.name);
+        default:
+            return state;
+    }
+}
+
 export const appReducers: Reducer<CombinedState<AppState>, IAppAction>  = combineReducers<AppState, IAppAction>({
-    selectedCampaign,  selectedCharacter, selectedScenario, gameContext, skillTest
+    selectedCampaign,  bagSpec, selectedCharacter, selectedScenario, gameContext, skillTest
 });

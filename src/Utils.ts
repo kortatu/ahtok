@@ -7,3 +7,16 @@ export function repeat(num: number, f: () => void) {
         f();
     }
 }
+
+export function repeatMap<T>(num: number, f: (index: number) => T): T[] {
+    const list = []
+    for (let i = 0; i < num; i++) {
+        list.push(f(i));
+    }
+    return list;
+}
+
+export function nonAscii(aString: string) {
+    const ascii = /^[ -~]+$/;
+    return !ascii.test(aString);
+}
