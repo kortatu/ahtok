@@ -11,6 +11,8 @@ export interface TokenSpec {
 }
 export type EffectSpec = (tokenBag: TokenBag) => number;
 
+export const elderSignEffect = (tokenBag: TokenBag) => tokenBag.character.elderSignEffect(tokenBag);
+
 export interface Token extends TokenSpec {
     effect: EffectSpec;
 }
@@ -181,7 +183,7 @@ export function tokenFloatAverage(tokenBag: TokenBag) {
     const tokens = tokenBag.tokens;
     let numOfTokens = 0;
     const total = tokens.reduce<number>((sum, token) => {
-        if (token.value !== FALLO_AUTOMATICO_VALUE) {
+        if (token.effect(tokenBag) !== FALLO_AUTOMATICO_VALUE) {
             numOfTokens += token.count;
             return sum + (token.effect(tokenBag) * token.count)
         } else {

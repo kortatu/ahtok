@@ -4,7 +4,6 @@ import {IAppAction} from "./AppActions";
 import {AppState} from "./AppState";
 import {Campaign, Campaigns, ICampaignSpec} from "./tok/Campaign";
 import {SkillTest} from "./tok/SkillTest";
-import {startAlvaroElCirculoRotoLPDP} from "./tok/ElCirculoRoto";
 import {ScenarioContext, TokenBagSpec} from "./tok/Token";
 import {AHCharacters} from "./tok/AHCharacter";
 import {initContext} from "./tok/Scenario";

@@ -3,6 +3,7 @@ import {addTokens, TokenBagSpec, TokenSpec} from "./Token";
 import {AHCharacter} from "./AHCharacter";
 import {buildElCirculoRotoCampaignSpec} from "./ElCirculoRoto";
 import {Translation} from "../Utils";
+import {buildLaEraOlvidadaCampaignSpec} from "./LaEraOlvidada";
 
 export type AHLevel = "easy" | "normal" | "hard" | "expert";
 type IBagSpecByLevel = {
@@ -21,7 +22,8 @@ interface ICampaigns {
     [key: string]: ICampaignSpec
 }
 export const Campaigns: ICampaigns = {
-    TheCircleUndone: buildElCirculoRotoCampaignSpec() as ICampaignSpec
+    TheCircleUndone: buildElCirculoRotoCampaignSpec(),
+    TheForgottenAge: buildLaEraOlvidadaCampaignSpec(),
 }
 
 export const campaignTranslations = Object.values(Campaigns).reduce<any>((allTrans, campaign) => {
