@@ -1,6 +1,7 @@
 import {Action} from "redux";
 import {AHCharacter} from "./tok/AHCharacter";
 import {IScenarioSpec} from "./tok/Scenario";
+import {TokenSpec} from "./tok/Token";
 
 export interface IAppAction extends Action {}
 export interface ICampaignAction extends IAppAction {}
@@ -8,6 +9,7 @@ export interface IScenarioAction extends IAppAction { scenarioSpec: IScenarioSpe
 export interface ICharacterAction extends IAppAction { character: AHCharacter }
 export interface IContextAction extends IAppAction { key: string }
 export interface IIncDecAction extends IAppAction { incDec: boolean }
+export interface ITokenAction extends IAppAction { tokenSpec: TokenSpec}
 
 // Campaign
 export const NEXT_SCENARIO = 'NEXT_SCENARIO';
@@ -26,6 +28,9 @@ export const TOGGLE_CONTEXT_VALUE = 'TOGGLE_CONTEXT_VALUE';
 export const CHANGE_SKILL = 'CHANGE_SKILL';
 export const CHANGE_TEST = 'CHANGE_TEST';
 
+//BagTokenSpec
+export const ADD_TOKEN = 'ADD_TOKEN';
+export const REMOVE_TOKEN = 'REMOVE_TOKEN';
 
 export function advanceScenario(): ICampaignAction {
     return {
@@ -87,3 +92,17 @@ export function changeTest(incDec: boolean): IIncDecAction {
 }
 export const decreaseTest = () => changeTest(false);
 export const increaseTest = () => changeTest(true);
+
+export function addToken(tokenSpec: TokenSpec): ITokenAction {
+    return {
+        type: ADD_TOKEN,
+        tokenSpec
+    }
+}
+
+export function removeToken(tokenSpec: TokenSpec): ITokenAction {
+    return {
+        type: REMOVE_TOKEN,
+        tokenSpec
+    }
+}

@@ -1,7 +1,9 @@
 import {AHCharacter} from "./AHCharacter";
 import {incDecNatural} from "../Utils";
+import * as uuid from "uuid";
 
 export interface TokenSpec {
+    id: string;
     value: number,
     count: number,
     name: string,
@@ -14,9 +16,11 @@ export interface Token extends TokenSpec {
 }
 
 export function tokenSpecDef(value: number, count: number, chaos = false, name?: string): TokenSpec {
+    const actualName = name ?? "Token" + value;
     return {
         value, count, chaos,
-        name: name ?? "Token" + value,
+        name: actualName,
+        id: actualName + "_" + uuid.v4()
     }
 }
 
@@ -46,7 +50,7 @@ export function removeToken(tokenBagSpec: TokenBagSpec, tokenName: string): Toke
     if (tokenSpecInBag) {
         tokenSpecInBag.count-=1;
     }
-    newBag.tokens = newBag.tokens.filter(ts => ts.count === 0);
+    newBag.tokens = newBag.tokens.filter(ts => ts.count > 0);
     return newBag;
 }
 
@@ -76,6 +80,28 @@ export function allTokenSpecs(bagSpec: TokenBagSpec): TokenSpec[] {
         for(let i = 0; i < t.count; i++) allTokensIndividually.push({...t, count: 1});
     })
     return allTokensIndividually;
+}
+
+export function allKnownTokens(): TokenBagSpec {
+    return buildBagSpec(
+        tokenSpecDef(2, 1, false, 'elderSign'),
+        tokenSpecDef(1, 1, false),
+        tokenSpecDef(0, 1, false),
+        tokenSpecDef(-1, 1, false),
+        tokenSpecDef(-2, 1, false),
+        tokenSpecDef(-3, 1, false),
+        tokenSpecDef(-4, 1, false),
+        tokenSpecDef(-5, 1, false),
+        tokenSpecDef(-6, 1, false),
+        // tokenSpecDef(-7, 1, false),
+        tokenSpecDef(-8, 1, false),
+        // tokenSpecDef(-9, 1, false),
+        tokenSpecDef(0, 1, true, 'Calavera'),
+        tokenSpecDef(0, 1, true, 'Sectario'),
+        tokenSpecDef(0, 1, true, 'Lápida'),
+        tokenSpecDef(0, 1, true, 'Antiguo'),
+        FALLO_AUTOMATICO
+    );
 }
 
 export type ScenarioContext = { [key: string]: number|boolean };
@@ -175,7 +201,7 @@ interface ValueCount {
     count: number;
 }
 
-function tokensWithValue(tokenBag: TokenBag, value: number): Token[] {
+export function tokensWithValue(tokenBag: TokenBag, value: number): Token[] {
     const tokens = [];
     const sorted = sortTokens(tokenBag);
     let i = 0;
@@ -234,7 +260,7 @@ export function seal(tokenBag: TokenBag, tokenName: string): TokenBag {
 export function allTokens(bag: TokenBag): Token[] {
     const allTokensIndividually: Token[] = [];
     bag.tokens.forEach( t => {
-        for(let i = 0; i < t.count; i++) allTokensIndividually.push({...t, count: 1});
+        for(let i = 0; i < t.count; i++) allTokensIndividually.push({...t, count: 1, id: t.id + "_" + i});
     })
     return allTokensIndividually;
 }

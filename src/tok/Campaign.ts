@@ -2,6 +2,7 @@ import {IScenarioSpec} from "./Scenario";
 import {addTokens, TokenBagSpec, TokenSpec} from "./Token";
 import {AHCharacter} from "./AHCharacter";
 import {buildElCirculoRotoCampaignSpec} from "./ElCirculoRoto";
+import {Translation} from "../Utils";
 
 export type AHLevel = "easy" | "normal" | "hard" | "expert";
 type IBagSpecByLevel = {
@@ -13,6 +14,7 @@ export interface ICampaignSpec {
     name: string;
     scenarios: IScenarioSpec[];
     bagSpecsByLevel: IBagSpecByLevel;
+    translations: Translation;
 }
 
 interface ICampaigns {
@@ -22,6 +24,33 @@ export const Campaigns: ICampaigns = {
     TheCircleUndone: buildElCirculoRotoCampaignSpec() as ICampaignSpec
 }
 
+export const campaignTranslations = Object.values(Campaigns).reduce<any>((allTrans, campaign) => {
+    const thisTranslations = campaign.translations;
+    Object.keys(thisTranslations).forEach(lang => {
+        if (allTrans[lang] === undefined) {
+            allTrans[lang] = {}
+        }
+        allTrans[lang][campaign.name] = thisTranslations[lang];
+    });
+    campaign.scenarios.forEach(scenario =>  {
+        Object.keys(scenario.translations).forEach(scenarioLang => {
+            if (allTrans[scenarioLang] === undefined) {
+                allTrans[scenarioLang] = {}
+            }
+            allTrans[scenarioLang][scenario.name] = scenario.translations[scenarioLang]
+        });
+        scenario.contextSpec.valuesSpec.forEach(valueSpec => {
+            Object.keys(valueSpec.translations).forEach(valueSpecLang => {
+                if (allTrans[valueSpecLang] === undefined) {
+                    allTrans[valueSpecLang] = {}
+                }
+                allTrans[valueSpecLang][valueSpec.name] = valueSpec.translations[valueSpecLang];
+            });
+
+        })
+    });
+    return allTrans;
+}, {});
 
 interface ICampaign {
 }

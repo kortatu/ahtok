@@ -5,6 +5,7 @@ import {AHCharacter} from "./AHCharacter";
 import {changeCharacter} from "../AppActions";
 import {connect} from "react-redux";
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,12 +27,13 @@ export const CurrentCharacterSelector = connect(
 
 export function CharacterSelector(props: {character: AHCharacter, characters: AHCharacter[], setCharacter: (character: AHCharacter) => void}) {
     const {character, characters, setCharacter} = props;
+    const { t } = useTranslation();
     const findCharacterByShortName = (shortName: string): AHCharacter | undefined => {
         return characters.find(c => c.shortName === shortName);
     }
 
     return <div>
-        <InputLabel>Personaje actual:</InputLabel>
+        <InputLabel>{t('Current character')}:</InputLabel>
         <FormControl variant="standard" className={useStyles().formControl}>
             <Select
                 labelId="character-selector-label"
