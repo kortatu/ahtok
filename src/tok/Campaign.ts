@@ -6,6 +6,7 @@ import {Translation} from "../Utils";
 import {buildLaEraOlvidadaCampaignSpec} from "./LaEraOlvidada";
 
 export type AHLevel = "easy" | "normal" | "hard" | "expert";
+export const AHLevels = ["easy" , "normal" , "hard" , "expert"]
 type IBagSpecByLevel = {
     [key in AHLevel]: TokenBagSpec;
 };

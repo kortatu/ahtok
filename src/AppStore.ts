@@ -85,7 +85,6 @@ export function resetStore() {
 
 export function saveLang(lang: string) {
     localStorage.setItem(LANGUAGE_STORE_KEY, lang);
-    window.location.reload();
 }
 
 store.subscribe(() => {

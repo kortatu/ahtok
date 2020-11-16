@@ -15,14 +15,14 @@ import {
     CHANGE_SCENARIO,
     CHANGE_SKILL,
     CHANGE_TEST,
-    IAppAction,
+    IAppAction, ICampaignSelectAction,
     ICharacterAction,
     IContextAction,
     IIncDecAction,
     INC_DEC_CONTEXT_VALUE,
     IScenarioAction, ITokenAction,
     NEXT_SCENARIO,
-    PREV_SCENARIO, REMOVE_TOKEN,
+    PREV_SCENARIO, REMOVE_TOKEN, SELECT_CAMPAIGN,
     TOGGLE_CONTEXT_VALUE
 } from "./AppActions";
 import {AppState} from "./AppState";
@@ -41,6 +41,8 @@ const  selectedCampaign: Reducer<Campaign, IAppAction> = (state: Campaign = defa
         case PREV_SCENARIO:
             state.prevScenario();
             return state;
+        case SELECT_CAMPAIGN:
+            return (action as ICampaignSelectAction).campaign;
         default:
             return state;
     }
@@ -50,6 +52,8 @@ const  selectedCampaign: Reducer<Campaign, IAppAction> = (state: Campaign = defa
 const firstScenario = defaultCampaign.getScenarioSpec();
 const selectedScenario: Reducer<IScenarioSpec, IAppAction> = (state = firstScenario, action: IAppAction) => {
     switch (action.type) {
+        case SELECT_CAMPAIGN:
+            return (action as ICampaignSelectAction).campaign.getScenarioSpec();
         case CHANGE_SCENARIO:
             return (action as IScenarioAction).scenarioSpec;
         default:
@@ -61,6 +65,8 @@ const selectedCharacter: Reducer<AHCharacter, IAppAction> = (state = defaultCamp
     switch (action.type) {
         case CHANGE_CHARACTER:
             return (action as ICharacterAction).character;
+        case SELECT_CAMPAIGN:
+            return (action as ICampaignSelectAction).campaign.characters[0];
         default:
             return state;
     }
@@ -68,6 +74,8 @@ const selectedCharacter: Reducer<AHCharacter, IAppAction> = (state = defaultCamp
 const initialContext = initContext(firstScenario.contextSpec);
 const gameContext: Reducer<ScenarioContext, IAppAction> = (gameContext = initialContext, action: IAppAction) => {
     switch (action.type) {
+        case SELECT_CAMPAIGN:
+            return initContext((action as ICampaignSelectAction).campaign.getScenarioSpec().contextSpec);
         case CHANGE_SCENARIO:
             return initContext((action as IScenarioAction).scenarioSpec.contextSpec);
         case INC_DEC_CONTEXT_VALUE:
@@ -107,6 +115,8 @@ const skillTest: Reducer<SkillTest, IAppAction> = (state = initialSkillTest, act
 const bagSpec: Reducer<TokenBagSpec, IAppAction> = (state = defaultCampaign.currentBagSpec, action) => {
     const tokenAction = action as ITokenAction;
     switch (action.type) {
+        case SELECT_CAMPAIGN:
+            return (action as ICampaignSelectAction).campaign.currentBagSpec;
         case ADD_TOKEN:
             return addTokens(state, tokenAction.tokenSpec);
         case REMOVE_TOKEN:

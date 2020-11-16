@@ -21,6 +21,7 @@ export default function (lang = "es") {
                         "Current bag": "Bolsa actual",
                         "Select tokens to remove them": "Selecciona tokens para eliminarlos",
                         "Select tokens to add them to the bag": "Selecciona tokens para añadirlos a la bolsa",
+                        "Select campaign": "Selecciona campaña",
                     }
                 },
             },

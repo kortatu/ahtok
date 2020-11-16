@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {store} from "./AppStore";
+import {loadCurrentLang, store} from "./AppStore";
 import {Provider} from "react-redux";
+import I18n from "./I18n";
 
+I18n(loadCurrentLang());
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>

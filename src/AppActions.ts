@@ -2,9 +2,11 @@ import {Action} from "redux";
 import {AHCharacter} from "./tok/AHCharacter";
 import {IScenarioSpec} from "./tok/Scenario";
 import {TokenSpec} from "./tok/Token";
+import {Campaign} from "./tok/Campaign";
 
 export interface IAppAction extends Action {}
 export interface ICampaignAction extends IAppAction {}
+export interface ICampaignSelectAction extends ICampaignAction { campaign: Campaign }
 export interface IScenarioAction extends IAppAction { scenarioSpec: IScenarioSpec }
 export interface ICharacterAction extends IAppAction { character: AHCharacter }
 export interface IContextAction extends IAppAction { key: string }
@@ -12,6 +14,7 @@ export interface IIncDecAction extends IAppAction { incDec: boolean }
 export interface ITokenAction extends IAppAction { tokenSpec: TokenSpec}
 
 // Campaign
+export const SELECT_CAMPAIGN = 'SELECT_CAMPAIGN';
 export const NEXT_SCENARIO = 'NEXT_SCENARIO';
 export const PREV_SCENARIO = 'PREV_SCENARIO';
 // Scenario
@@ -31,6 +34,16 @@ export const CHANGE_TEST = 'CHANGE_TEST';
 //BagTokenSpec
 export const ADD_TOKEN = 'ADD_TOKEN';
 export const REMOVE_TOKEN = 'REMOVE_TOKEN';
+
+//Campaign Wizard
+export const SELECT_CAMPAIGN_SPEC = 'SELECT_CAMPAIGN_SPEC';
+
+export function selectCampaign(campaign: Campaign): ICampaignSelectAction {
+    return {
+        type: SELECT_CAMPAIGN,
+        campaign
+    }
+}
 
 export function advanceScenario(): ICampaignAction {
     return {

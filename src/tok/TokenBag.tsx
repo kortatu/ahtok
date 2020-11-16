@@ -1,13 +1,13 @@
 import {allKnownTokens, allTokens, TokenBag, TokenBagSpec, tokenFloatAverage, TokenSpec} from "./Token";
-import {Box, createStyles, Theme, Typography} from "@material-ui/core";
+import {Box, Typography} from "@material-ui/core";
 import {TokenSpan} from "./TokenSpan";
-import {makeStyles} from "@material-ui/core/styles";
 import {AppState} from "../AppState";
 import {Dispatch} from "redux";
 import {addToken, ITokenAction, removeToken} from "../AppActions";
 import {connect} from "react-redux";
 import React from "react";
 import {useTranslation} from "react-i18next";
+import {useModalStyles} from "../CommonStyles";
 
 export function BagDisplay({tokenBag, showAverage = true, onClick, fadeOutTokens = false}:
                                {tokenBag: TokenBag, showAverage?: boolean, onClick?: (token: TokenSpec) => void, fadeOutTokens: boolean}) {
@@ -62,21 +62,6 @@ function BagSpecDisplay({tokenBagSpec, onClick}: {tokenBagSpec: TokenBagSpec, on
     </div>
 }
 
-const useModalStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        paper: {
-            position: 'relative',
-            left: "15%",
-            top: "40%",
-            width: "70%",
-            opacity: 0.9,
-            backgroundColor: theme.palette.background.paper,
-            border: '2px solid #FFF',
-            boxShadow: theme.shadows[5],
-            padding: theme.spacing(2, 4, 3),
-        },
-    }),
-);
 
 
 
