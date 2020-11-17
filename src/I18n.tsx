@@ -22,6 +22,11 @@ export default function (lang = "es") {
                         "Select tokens to remove them": "Selecciona tokens para eliminarlos",
                         "Select tokens to add them to the bag": "Selecciona tokens para añadirlos a la bolsa",
                         "Select campaign": "Selecciona campaña",
+                        "Create campaign": "Crear campaña",
+                        "Select level": "Selecciona nivel",
+                        "easy": "fácil", "normal": "normal", "hard": "difícil", "expert": "experto",
+                        "Pick up two four characters": "Elige hasta 4 personajes",
+                        "Create": "Crear"
                     }
                 },
             },

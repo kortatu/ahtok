@@ -194,8 +194,7 @@ export function tokenFloatAverage(tokenBag: TokenBag) {
 }
 
 export function tokenAverage(tokenBag: TokenBag): number {
-    const floatAverage = tokenFloatAverage(tokenBag);
-    return Math.floor(floatAverage);
+    return Math.floor(tokenFloatAverage(tokenBag));
 }
 
 interface ValueCount {

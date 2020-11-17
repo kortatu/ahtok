@@ -13,7 +13,7 @@ export function BagDisplay({tokenBag, showAverage = true, onClick, fadeOutTokens
                                {tokenBag: TokenBag, showAverage?: boolean, onClick?: (token: TokenSpec) => void, fadeOutTokens: boolean}) {
     const { t } = useTranslation();
     return <div className="BagDisplay">
-        {showAverage ? (<Typography>{t('Bag average')}: {tokenFloatAverage(tokenBag)}</Typography>) : null }
+        {showAverage ? (<Typography>{t('Bag average')}: {tokenFloatAverage(tokenBag).toFixed(2)}</Typography>) : null }
         <p className="TokenStrip">
             {allTokens(tokenBag).map((token, index) => (
                 <TokenSpan key={token.id} token={token} onClick={onClick} fadeOut={fadeOutTokens}/>

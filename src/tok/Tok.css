@@ -59,8 +59,8 @@
 }
 
 .BagDisplay .Token {
-    width: calc(12px + 2vmin);
-    height: calc(12px + 2vmin);
+    width: calc(24px + 2vmin);
+    height: calc(24px + 2vmin);
 }
 
 .LineProb {

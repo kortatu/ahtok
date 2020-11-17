@@ -1,4 +1,4 @@
-import {Box, Modal, Typography} from "@material-ui/core";
+import {Box, IconButton, Modal, Typography} from "@material-ui/core";
 import {nonAscii} from "./Utils";
 import React, {useState} from "react";
 import {Campaign} from "./tok/Campaign";
@@ -31,11 +31,13 @@ export function TokHeader({campaign}: {campaign: Campaign}) {
                           style={{width: "2em", opacity: myLang === "es" ? "1.0" : "0.4"}}/>
             </Box>
             <Typography onClick={() => setModalOpen(true)} style={{
+                cursor: "pointer",
                 fontFamily: nonAsciiCharsInName ? themeSpec.headerFontFamilyNonAscii : themeSpec.headerFontFamily,
                 textAlign: "center"}} variant="h2" color="secondary" variantMapping={{h1: "header"}} className="App-header">
                 {campaignName}
+                <IconButton color="secondary" className="IconAction material-icons" style={{textAlign: "center"}} onClick={() => setModalOpen(true)}>edit</IconButton>
             </Typography>
-            <Modal open={modalOpen} onClose={() => setModalOpen(false)} aria-labelledby="bag-management-title">
+            <Modal open={modalOpen} onClose={() => setModalOpen(false)} aria-labelledby="campaign-creatuib-title">
                 <CampaignWizardChanger close={() => setModalOpen(false)}/>
             </Modal>
         </Box>

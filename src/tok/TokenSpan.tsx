@@ -17,9 +17,7 @@ export function TokenSpan(props: {token: TokenSpec, onClick?: (token: TokenSpec)
         if (props.onClick) {
             props.onClick(props.token);
         }
-        // if (props.fadeOutFadeIn) {
-            setFadeIn(true);
-        // }
+        setFadeIn(true);
     }
     return (
         <Fade in={fadeIn} onExited={fadeExitedHandler}>

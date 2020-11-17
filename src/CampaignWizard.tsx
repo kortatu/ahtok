@@ -64,7 +64,7 @@ function CampaignWizardComp({setCampaign}: { setCampaign: (campaign: Campaign) =
     return (
         <Box textAlign="center" className={classes.paper}>
             <Typography id="bag-management-title" variant="h3">{t('Create campaign')}</Typography>
-            <InputLabel>{t('Select campaign')}</InputLabel>
+            <InputLabel style={{marginTop: "15px"}}>{t('Select campaign')}</InputLabel>
             <FormControl variant="standard" className={useStyles().formControl}>
                 <Select
                     labelId="campaign-selector-label"
@@ -79,7 +79,7 @@ function CampaignWizardComp({setCampaign}: { setCampaign: (campaign: Campaign) =
             {campaignWizard.campaignId ?
                 <WizardStep2 campaignWizard={campaignWizard} setCampaignWizard={setCampaignWizard}/> : null}
             {campaignWizard.campaignId && campaignWizard.level && campaignWizard.characters.length > 0 ?
-                <Button onClick={() => setCampaignFromWizard(campaignWizard)}>Create</Button> : null}
+                <Button onClick={() => setCampaignFromWizard(campaignWizard)}>{t('Create')}</Button> : null}
         </Box>
     )
 }
@@ -93,7 +93,7 @@ function WizardStep2({campaignWizard, setCampaignWizard}: WizardProps) {
 
     return (
         <Box>
-            <InputLabel>{t('Select level')}</InputLabel>
+            <InputLabel style={{marginTop: "15px"}}>{t('Select level')}</InputLabel>
             <FormControl variant="standard" className={useStyles().formControl}>
                 <Select
                     labelId="level-selector-label"
