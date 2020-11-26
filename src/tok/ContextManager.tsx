@@ -19,10 +19,13 @@ export const CurrentScenarioContextManager = connect(
         toggleContextValue: (key: string) => dispatch(toggleContextValue(key))
     })
 )(ContextManager);
-function ContextManager({spec, context, incDecContextValue, toggleContextValue}:
-                               {spec: IScenarioContextSpec, context: ScenarioContext,
-                                incDecContextValue: (key: string, incDec: boolean) => void,
-                                toggleContextValue: (key: string) => void}) {
+type ContextManagerProps = {
+    spec: IScenarioContextSpec, context: ScenarioContext,
+    incDecContextValue: (key: string, incDec: boolean) => void,
+    toggleContextValue: (key: string) => void
+};
+
+function ContextManager({spec, context, incDecContextValue, toggleContextValue}: ContextManagerProps) {
     return <Typography variant="h5" style={{paddingTop: "2vmin"}}>
         {Object.keys(context).map(contextKey => (
             <ContextValueChanger key={contextKey} currentValue={context[contextKey]}
