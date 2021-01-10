@@ -5,6 +5,7 @@ import {buildElCirculoRotoCampaignSpec} from "./ElCirculoRoto";
 import {Translation} from "../Utils";
 import {buildLaEraOlvidadaCampaignSpec} from "./LaEraOlvidada";
 import {buildElLegadoDeDunwichCampaignSpec} from "./ElLegadoDeDunwich";
+import {buildLosDevoradoresACampaignSpec, buildLosDevoradoresBCampaignSpec} from "./LosDevoradoresDeSuenos";
 
 export type AHLevel = "easy" | "normal" | "hard" | "expert";
 export const AHLevels = ["easy" , "normal" , "hard" , "expert"]
@@ -26,7 +27,9 @@ interface ICampaigns {
 export const Campaigns: ICampaigns = {
     TheCircleUndone: buildElCirculoRotoCampaignSpec(),
     TheForgottenAge: buildLaEraOlvidadaCampaignSpec(),
-    TheDunwichLegacy: buildElLegadoDeDunwichCampaignSpec()
+    TheDunwichLegacy: buildElLegadoDeDunwichCampaignSpec(),
+    TheDreamEatersA: buildLosDevoradoresACampaignSpec(),
+    TheDreamEatersB: buildLosDevoradoresBCampaignSpec(),
 }
 
 export const campaignTranslations = Object.values(Campaigns).reduce<any>((allTrans, campaign) => {
