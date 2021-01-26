@@ -180,7 +180,7 @@ function ElLadoOscuroDeLaLuna(): IScenarioSpec {
                 name: ALARM_LEVEL,
                 description: "Alarm level",
                 type: "number",
-                initialValue: 0,
+                initialValue: 1,
                 translations: {
                     "es": "Nivel de alarma"
                 }
@@ -189,6 +189,36 @@ function ElLadoOscuroDeLaLuna(): IScenarioSpec {
         }
     };
 }
+
+function DondeMoranLosDioses(): IScenarioSpec {
+    const CURRENT_ACT="Current act";
+    return {
+        name: "Where Gods Dwell",
+        translations: {
+            "es": "Donde moran los dioses",
+        },
+        scenarioEffectSpec: [
+            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+            {name: "Calavera", effect: (tokenBag) => -tokenBag.context[CURRENT_ACT] as number},
+            {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
+            {name: "Lápida", effect: (_) => -4},
+            {name: "Antiguo", effect: (_) => 0},
+        ],
+        contextSpec: {
+            valuesSpec: [{
+                name: CURRENT_ACT,
+                description: "Number of the current act",
+                type: "number",
+                initialValue: 1,
+                translations: {
+                    "es": "Número del acto en curso"
+                }
+            }
+            ]
+        }
+    };
+}
+// ----- Campaign B
 
 function PuntoSinRetorno(): IScenarioSpec {
     const DAMAGE_ON_SCENARIO = "Damage on scenario card";
@@ -219,12 +249,41 @@ function PuntoSinRetorno(): IScenarioSpec {
     };
 }
 
+function TejedoraDelCosmos(): IScenarioSpec {
+    const HIGHEST_DOOM = "Highest doom on a location";
+    return {
+        name: "Weaver of the Cosmos",
+        translations: {
+            "es": "Tejedora del cosmos",
+        },
+        scenarioEffectSpec: [
+            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+            {name: "Calavera", effect: (tokenBag) => -tokenBag.context[HIGHEST_DOOM]},
+            {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
+            {name: "Lápida", effect: (_) => 0},
+            {name: "Antiguo", effect: (_) => -3},
+        ],
+        contextSpec: {
+            valuesSpec: [{
+                name: HIGHEST_DOOM,
+                description: "Highest amount of doom on a location in play",
+                type: "number",
+                initialValue: 0,
+                translations: {
+                    "es": "Mayor perdición en un lugar"
+                }
+            }
+            ]
+        }
+    };
+}
+
 export function buildLosDevoradoresACampaignSpec(): ICampaignSpec {
     return {
         id: "TheDreamEatersA",
         name: "The Dream-Eaters A",
         scenarios: [
-            MásAlláDeLasPuertasDelSueño(), ElLadoOscuroDeLaLuna()
+            MásAlláDeLasPuertasDelSueño(), ElLadoOscuroDeLaLuna(), DondeMoranLosDioses()
         ],
         bagSpecsByLevel: {
             easy: easyA(),
@@ -243,7 +302,7 @@ export function buildLosDevoradoresBCampaignSpec(): ICampaignSpec {
         id: "TheDreamEatersB",
         name: "The Dream-Eaters B",
         scenarios: [
-            PuntoSinRetorno(),
+            PuntoSinRetorno(),TejedoraDelCosmos()
         ],
         bagSpecsByLevel: {
             easy: easyB(),
