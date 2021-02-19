@@ -37,7 +37,7 @@ export function TokHeader({campaign}: {campaign: Campaign}) {
                 {campaignName}
                 <IconButton color="secondary" className="IconAction material-icons" style={{textAlign: "center"}} onClick={() => setModalOpen(true)}>edit</IconButton>
             </Typography>
-            <Modal open={modalOpen} onClose={() => setModalOpen(false)} aria-labelledby="campaign-creatuib-title">
+            <Modal open={modalOpen} onClose={() => setModalOpen(false)} aria-labelledby="campaign-creatuib-title" style={{overflowY: "auto"}}>
                 <CampaignWizardChanger close={() => setModalOpen(false)}/>
             </Modal>
         </Box>
