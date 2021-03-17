@@ -1,6 +1,6 @@
 import {
     addTokens,
-    buildBagSpec,
+    buildBagSpec, commonTokenEffectSpec,
     FALLO_AUTOMATICO,
     removeToken, seal,
     tokenAverage,
@@ -77,12 +77,11 @@ function ActividadExtracurricular(): IScenarioSpec {
         translations: {
             "es": "Actividad extracurricular",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -1},
             {name: "Sectario", effect: (tokenBag) => tokenBag.context[CARDS_IN_DISCARD_PILE] >= 10 ? -3 : -1},
             {name: "Antiguo", effect: (tokenBag) => -tokenBag.context[COST_OF_DISCARED_CARDS]},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: CARDS_IN_DISCARD_PILE,
@@ -113,12 +112,11 @@ function LaCasaSiempreGana(): IScenarioSpec {
         translations: {
             "es": "La casa siempre gana",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => tokenBag.context[SPEND_2_RESOURCES] ? 0 : -2},
             {name: "Sectario", effect: (tokenBag) => -3},
             {name: "Lápida", effect: (tokenBag) => -2},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: SPEND_2_RESOURCES,
@@ -140,13 +138,12 @@ function ElMuseoMiskatonic(): IScenarioSpec {
         translations: {
             "es": "El Museo Miskatonic",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => tokenBag.context[HAUNTING_HORROR_AT_YOUR_LOCATION] ? -3 : -1},
             {name: "Sectario", effect: (tokenBag) => -1},
             {name: "Lápida", effect: (tokenBag) => -2},
             {name: "Antiguo", effect: (tokenBag) => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: HAUNTING_HORROR_AT_YOUR_LOCATION,
@@ -168,13 +165,12 @@ function ElEssexCountyExpress(): IScenarioSpec {
         translations: {
             "es": "El Essex County Express",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -tokenBag.context[CURRENT_AGENDA]},
             {name: "Sectario", effect: (tokenBag) => -1},
             {name: "Lápida", effect: (tokenBag) => -2},
             {name: "Antiguo", effect: (tokenBag) => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: CURRENT_AGENDA,
@@ -196,13 +192,12 @@ function SangreEnElAltar(): IScenarioSpec {
         translations: {
             "es": "Sangre en el altar",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -Math.min(4, tokenBag.context[LOCATION_WITHOUT] as number)},
             {name: "Sectario", effect: (tokenBag) => -2},
             {name: "Lápida", effect: (tokenBag) => -2},
             {name: "Antiguo", effect: (tokenBag) => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: LOCATION_WITHOUT,
@@ -225,13 +220,12 @@ function InvisiblesYSinDimension(): IScenarioSpec {
         translations: {
             "es": "Invisibles y sin dimension",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -tokenBag.context[BROOD_IN_PLAY]},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (tokenBag) => tokenBag.context[REMOVE_A_CLUE_FROM_BROOD] ? 0 : -4},
             {name: "Antiguo", effect: (tokenBag) => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: BROOD_IN_PLAY,
@@ -263,13 +257,12 @@ function DondeAguardaLaPerdicion(): IScenarioSpec {
         translations: {
             "es": "Donde aguarda la perdición",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => tokenBag.context[ALTERED_LOCATION] ? -3 : -1},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (tokenBag) => tokenBag.context[AGENDA_2] ? -4 : -2},
             {name: "Antiguo", effect: (tokenBag) => -tokenBag.context[COST_OF_DISCARED_CARDS]},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: ALTERED_LOCATION,
@@ -308,13 +301,12 @@ function PerdidosEnElTiempoYEnElEspacio(): IScenarioSpec {
         translations: {
             "es": "Perdidos en el tiempo y en el espacio",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -tokenBag.context[EXTRADIMENSIONAL_LOCATIONS]},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (tokenBag) => -3},
             {name: "Antiguo", effect: (tokenBag) => -tokenBag.context[SHROUD]},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: EXTRADIMENSIONAL_LOCATIONS,

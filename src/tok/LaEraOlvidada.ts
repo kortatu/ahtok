@@ -1,5 +1,5 @@
 import {
-    buildBagSpec,
+    buildBagSpec, commonTokenEffectSpec,
     elderSignEffect,
     FALLO_AUTOMATICO,
     seal,
@@ -82,13 +82,12 @@ function NaturalezaSalvaje(): IScenarioSpec {
         translations: {
             "es": "Naturaleza Salvaje"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: elderSignEffect},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => 0 - (tokenBag.context[PUNTOS_DE_VENGANZA] as number)},
             {name: "Sectario", effect: (tokenBag) => 0 - Math.min(5, tokenBag.context[LUGARES_EN_JUEGO] as number)},
             {name: "Lápida", effect: (tokenBag) => 0 - Math.min(5, tokenBag.context[CARTAS_EXPLORACION] as number)},
             {name: "Antiguo", effect: (tokenBag) => tokenBag.context[ENVENENADO] ? -99 : -2},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: PUNTOS_DE_VENGANZA,
@@ -138,13 +137,12 @@ function LaPerdicionDeEztli(): IScenarioSpec {
         translations: {
             "es": "La perdición de Eztli",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: elderSignEffect},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => tokenBag.context[PERDICION_EN_TU_LUGAR] ? -3 : -1},
             {name: "Sectario", effect: (tokenBag) => fichas(tokenBag)},
             {name: "Lápida", effect: (tokenBag) => fichas(tokenBag)},
             {name: "Antiguo", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Antiguo"))},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: FICHAS_PERDICION,
@@ -174,13 +172,12 @@ function LosHilosDelDestino(): IScenarioSpec {
         translations: {
             "es": "Los hilos del destino"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => 0 - (tokenBag.context[MAYOR_PERDICION_EN_CULTISTA] as number)},
             {name: "Sectario", effect: (tokenBag) => -2},
             {name: "Lápida", effect: (tokenBag) => -2},
             {name: "Antiguo", effect: (tokenBag) => -2},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: MAYOR_PERDICION_EN_CULTISTA,
@@ -202,13 +199,12 @@ function ElLimiteDelOtroLado(): IScenarioSpec {
         translations: {
             "es": "El límite del otro lado"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: elderSignEffect},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => (tokenBag.context[LUGAR_ANTIGUO] as boolean) ? -3 : -1},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Lápida"))},
             {name: "Antiguo", effect: (tokenBag) => -4},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: LUGAR_ANTIGUO,
@@ -231,13 +227,12 @@ function ElCorazonDeLosAncianos(): IScenarioSpec {
         translations: {
             "es": "El corazón de los ancianos"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: elderSignEffect},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => (tokenBag.context[EN_UNA_CUEVA] as boolean) ? -3 : -1},
             {name: "Sectario", effect: (tokenBag) => -2},
             {name: "Lápida", effect: (tokenBag) => (tokenBag.context[ENVENENADO] as boolean) ? -99 : -2},
             {name: "Antiguo", effect: (tokenBag) => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: EN_UNA_CUEVA,
@@ -268,13 +263,12 @@ function LaCiudadDeLosArchivos(): IScenarioSpec {
         translations: {
             "es": "La ciudad de los archivos"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: elderSignEffect},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => (tokenBag.context[CARTAS_EN_LA_MANO] as number) >= 5 ? -3 : -1},
             {name: "Sectario", effect: (tokenBag) => -2},
             {name: "Lápida", effect: (tokenBag) => -2},
             {name: "Antiguo", effect: (tokenBag) => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: CARTAS_EN_LA_MANO,
@@ -297,13 +291,12 @@ function LasProfundidadesDeYoth(): IScenarioSpec {
         translations: {
             "es": "Las profundidades de Yoth"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: elderSignEffect},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => 0 - (tokenBag.context[NIVEL_DE_PROFUNDIDAD] as number)},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Lápida"))},
             {name: "Antiguo", effect: (tokenBag) => (tokenBag.context[PUNTOS_DE_VENGANZA] as number) >= 3 ? -99 : -2},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: NIVEL_DE_PROFUNDIDAD,
@@ -334,13 +327,12 @@ function EonesDestozados(): IScenarioSpec {
         translations: {
             "es": "Eones destrozados"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: elderSignEffect},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => (tokenBag.context[RELIQUIA_DE_LAS_ERAS_EN_TU_LUGAR] as boolean) ? -4 : -2},
             {name: "Sectario", effect: (tokenBag) => -2},
             {name: "Lápida", effect: (tokenBag) => (tokenBag.context[ENVENENADO] as boolean) ? -99 : -2},
             {name: "Antiguo", effect: (tokenBag) => -2},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: RELIQUIA_DE_LAS_ERAS_EN_TU_LUGAR,

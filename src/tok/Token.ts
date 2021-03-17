@@ -102,8 +102,19 @@ export function allKnownTokens(): TokenBagSpec {
         tokenSpecDef(0, 1, true, 'Sectario'),
         tokenSpecDef(0, 1, true, 'Lápida'),
         tokenSpecDef(0, 1, true, 'Antiguo'),
+        tokenSpecDef(2, 1, true, 'Blessed'),
+        tokenSpecDef(-2, 1, true, 'Cursed'),
         FALLO_AUTOMATICO
     );
+}
+
+export function commonTokenEffectSpec(): ScenarioEffectSpecs {
+    return [
+        {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        {name: "Blessed", effect: (tokenBag) => 2 + tokenAverage(seal(tokenBag, "Blessed"))},
+        {name: "Cursed", effect: (tokenBag) => -2 + tokenAverage(seal(tokenBag, "Cursed"))},
+    ];
+
 }
 
 export type ScenarioContext = { [key: string]: number|boolean };

@@ -26,7 +26,8 @@ export default function (lang = "es") {
                         "Select level": "Selecciona nivel",
                         "easy": "fácil", "normal": "normal", "hard": "difícil", "expert": "experto",
                         "Pick up two four characters": "Elige hasta 4 personajes",
-                        "Create": "Crear"
+                        "Create": "Crear",
+                        "Hard and expert coming soon": "Difícil y experto próximamente"
                     }
                 },
             },

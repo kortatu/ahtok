@@ -1,4 +1,12 @@
-import {buildBagSpec, FALLO_AUTOMATICO, seal, tokenAverage, TokenBagSpec, tokenSpecDef} from "./Token";
+import {
+    buildBagSpec,
+    commonTokenEffectSpec,
+    FALLO_AUTOMATICO,
+    seal,
+    tokenAverage,
+    TokenBagSpec,
+    tokenSpecDef
+} from "./Token";
 import {ICampaignSpec} from "./Campaign";
 import {IScenarioSpec} from "./Scenario";
 
@@ -132,12 +140,11 @@ function MásAlláDeLasPuertasDelSueño(): IScenarioSpec {
         translations: {
             "es": "Más allá de las puertas del sueño",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => Math.ceil(-tokenBag.context[CARDS_IN_YOUR_HAND] / 2)},
             {name: "Sectario", effect: (tokenBag) => -tokenBag.context[REVEALED_WOODS]},
             {name: "Lápida", effect: (_) => -2},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: CARDS_IN_YOUR_HAND,
@@ -161,6 +168,33 @@ function MásAlláDeLasPuertasDelSueño(): IScenarioSpec {
     };
 }
 
+function LaBúsquedaDeKadath(): IScenarioSpec {
+    const NUMBER_OF_SIGNS_OF_GOD="Number of signs of gods";
+    return {
+        name: "The Search for Kadath",
+        translations: {
+            "es": "La búsqueda de Kadath",
+        },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
+            {name: "Calavera", effect: (tokenBag) => tokenBag.context[NUMBER_OF_SIGNS_OF_GOD] as number},
+            {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
+            {name: "Lápida", effect: (_) => -2},
+            {name: "Antiguo", effect: (_) => +2},
+        ]),
+        contextSpec: {
+            valuesSpec: [{
+                name: NUMBER_OF_SIGNS_OF_GOD,
+                description: "Number of signs of gods uncovered",
+                type: "number",
+                initialValue: 0,
+                translations: {
+                    "es": "Número de señales de los dioses"
+                }
+            }
+            ]
+        }
+    };
+}
 function ElLadoOscuroDeLaLuna(): IScenarioSpec {
     const ALARM_LEVEL="Alarm level";
     return {
@@ -168,13 +202,12 @@ function ElLadoOscuroDeLaLuna(): IScenarioSpec {
         translations: {
             "es": "El lado oscuro de la luna",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -Math.ceil(tokenBag.context[ALARM_LEVEL] as number / 2)},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (_) => -1},
             {name: "Antiguo", effect: (_) => +1},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: ALARM_LEVEL,
@@ -197,13 +230,12 @@ function DondeMoranLosDioses(): IScenarioSpec {
         translations: {
             "es": "Donde moran los dioses",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -tokenBag.context[CURRENT_ACT] as number},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (_) => -4},
             {name: "Antiguo", effect: (_) => 0},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: CURRENT_ACT,
@@ -220,6 +252,72 @@ function DondeMoranLosDioses(): IScenarioSpec {
 }
 // ----- Campaign B
 
+
+
+function PesadillaConsciente(): IScenarioSpec {
+    const ENGANGED_WITH_A_STAFF = "Engaged with a staff enemy";
+    const NUMBER_OF_INFESTED = "Number of infested locations";
+    return {
+        name: "Waking Nightmare",
+        translations: {
+            "es": "Punto sin retorno",
+        },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
+            {name: "Calavera", effect: (tokenBag) => (tokenBag.context[ENGANGED_WITH_A_STAFF] as boolean) ? -3 : -1},
+            {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
+            {name: "Antiguo", effect: (tokenBag) => -tokenBag.context[NUMBER_OF_INFESTED]},
+        ]),
+        contextSpec: {
+            valuesSpec: [{
+                name: ENGANGED_WITH_A_STAFF,
+                description: "Enganged with a staff enemy",
+                type: "boolean",
+                initialValue: false,
+                translations: {
+                    "es": "Enfrentado a un enemigo personal"
+                }
+            }, {
+                name: NUMBER_OF_INFESTED,
+                description: "Number of infested locations",
+                type: "number",
+                initialValue: 0,
+                translations: {
+                    "es": "Número de localizaciones infestadas"
+                }
+            }
+            ]
+        }
+    };
+}
+
+function MilFormasDeHorror(): IScenarioSpec {
+    const GRAVEYARD_LOCATION = "At a graveyard location";
+    return {
+        name: "A Thousand Shapes of Horror",
+        translations: {
+            "es": "Mil formas de horror",
+        },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
+            {name: "Calavera", effect: (tokenBag) => tokenBag.context[GRAVEYARD_LOCATION] ? -3 : -1},
+            {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
+            {name: "Lápida", effect: (_) => +2},
+            {name: "Antiguo", effect: (_) => -2},
+        ]),
+        contextSpec: {
+            valuesSpec: [{
+                name: GRAVEYARD_LOCATION,
+                description: "You are at a graveyard location",
+                type: "boolean",
+                initialValue: true,
+                translations: {
+                    "es": "En una localización cementerio"
+                }
+            }
+            ]
+        }
+    };
+}
+
 function PuntoSinRetorno(): IScenarioSpec {
     const DAMAGE_ON_SCENARIO = "Damage on scenario card";
     return {
@@ -227,13 +325,12 @@ function PuntoSinRetorno(): IScenarioSpec {
         translations: {
             "es": "Punto sin retorno",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -tokenBag.context[DAMAGE_ON_SCENARIO]},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (_) => +1},
             {name: "Antiguo", effect: (_) => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: DAMAGE_ON_SCENARIO,
@@ -256,13 +353,12 @@ function TejedoraDelCosmos(): IScenarioSpec {
         translations: {
             "es": "Tejedora del cosmos",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => -tokenBag.context[HIGHEST_DOOM]},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: (_) => 0},
             {name: "Antiguo", effect: (_) => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: HIGHEST_DOOM,
@@ -283,7 +379,7 @@ export function buildLosDevoradoresACampaignSpec(): ICampaignSpec {
         id: "TheDreamEatersA",
         name: "The Dream-Eaters A",
         scenarios: [
-            MásAlláDeLasPuertasDelSueño(), ElLadoOscuroDeLaLuna(), DondeMoranLosDioses()
+            MásAlláDeLasPuertasDelSueño(), LaBúsquedaDeKadath(), ElLadoOscuroDeLaLuna(), DondeMoranLosDioses()
         ],
         bagSpecsByLevel: {
             easy: easyA(),
@@ -302,7 +398,7 @@ export function buildLosDevoradoresBCampaignSpec(): ICampaignSpec {
         id: "TheDreamEatersB",
         name: "The Dream-Eaters B",
         scenarios: [
-            PuntoSinRetorno(),TejedoraDelCosmos()
+            PesadillaConsciente(), MilFormasDeHorror(), PuntoSinRetorno(),TejedoraDelCosmos()
         ],
         bagSpecsByLevel: {
             easy: easyB(),

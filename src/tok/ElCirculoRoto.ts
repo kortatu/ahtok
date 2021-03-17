@@ -1,6 +1,6 @@
 import {
     addTokens,
-    buildBagSpec,
+    buildBagSpec, commonTokenEffectSpec,
     FALLO_AUTOMATICO,
     removeToken, seal,
     tokenAverage, TokenBag,
@@ -65,10 +65,9 @@ function Prologo(): IScenarioSpec {
         translations: {
             "es": "Desaparición en la finca del crepúsculo",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: () => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: []
         }
@@ -81,12 +80,11 @@ function LaHoraBruja(): IScenarioSpec {
         translations: {
             "es": "La hora bruja"
         },
-        scenarioEffectSpec: [
-            { name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag) },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             { name: "Calavera", effect: () => -1 },
             { name: "Lápida", effect: () => -3 },
             { name: "Antiguo", effect: () => -3 },
-        ],
+        ]),
         contextSpec: {
             valuesSpec: []
         }
@@ -100,12 +98,11 @@ function ALasPuertasDeLaMuerte(): IScenarioSpec {
         translations: {
             "es": "A las puertas de la muerte",
         },
-        scenarioEffectSpec: [
-            { name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag) },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             { name: "Calavera", effect: (tokenBag) => tokenBag.context[HAUNTED_LOCATION] ? -3 : -1 },
             { name: "Lápida", effect: () => -2 },
             { name: "Antiguo", effect: () => -2 },
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: HAUNTED_LOCATION,
@@ -127,13 +124,12 @@ function ElNombreSecreto(): IScenarioSpec {
         translations: {
             "es": "El nombre secreto",
         },
-        scenarioEffectSpec: [
-            { name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag) },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             { name: "Calavera", effect: (tokenBag) => tokenBag.context[EXTRADIMENSIONAL_LOCATION] ? -3 : -1 },
             { name: "Sectario", effect: tokenBag => tokenAverage(seal(tokenBag, "Sectario"))},
             { name: "Lápida", effect: () => -2 },
             { name: "Antiguo", effect: () => -3 },
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: EXTRADIMENSIONAL_LOCATION,
@@ -156,13 +152,12 @@ function LaPagaDelPecado(): IScenarioSpec {
         translations: {
             "es": "La paga del pecado",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => 0 - (tokenBag.context[UNFINISHED_BUSINESS] as number)},
             {name: "Sectario", effect: (tokenBag) => tokenBag.context[FIGHTING_EVADING_HERETIC] ? -4 : -3 },
             {name: "Lápida", effect: () => -3},
             {name: "Antiguo", effect: () => -2},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [
                 {
@@ -195,13 +190,12 @@ function PorElBienComun(): IScenarioSpec {
         translations: {
             "es": "Por el bien común",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => 0 - (tokenBag.context[MAXIMA_PERDICION] as number)},
             {name: "Sectario", effect: tokenBag => tokenAverage(seal(tokenBag, "Sectario")) - 2},
             {name: "Lápida", effect: () => -3},
             {name: "Antiguo", effect: () => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: MAXIMA_PERDICION,
@@ -223,14 +217,13 @@ function UnionYDesilusion(): IScenarioSpec {
         translations: {
             "es": "Unión y desilusión"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) =>
                     tokenBag.context[ACCION_CIRCULO] ? tokenAverage(seal(tokenBag, "Calavera")) - 2 : -2},
             {name: "Sectario", effect: () => -3},
             {name: "Lápida", effect: () => -3},
             {name: "Antiguo", effect: () => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: ACCION_CIRCULO,
@@ -256,8 +249,7 @@ function EnLasGarrasDelCaos(): IScenarioSpec {
         translations: {
           "es": "En las garras del caos",
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => 0 - getPerdicionYBrecha(tokenBag)},
             {name: "Sectario", effect: (tokenBag) => {
                 //Creates a new bag and a new context for this calculation
@@ -269,7 +261,7 @@ function EnLasGarrasDelCaos(): IScenarioSpec {
                 }},
             {name: "Lápida", effect: () => -2},
             {name: "Antiguo", effect: () => -3},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: PERDICION_Y_BRECHA,
@@ -295,13 +287,12 @@ function AnteElTronoNegro(): IScenarioSpec {
         translations: {
             "es": "Ante el trono negro"
         },
-        scenarioEffectSpec: [
-            {name: "elderSign", effect: (tokenBag) => tokenBag.character.elderSignEffect(tokenBag)},
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => 0 - Math.max(2, getHalfDoomInAzathot(tokenBag))},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Lápida", effect: () => -2},
             {name: "Antiguo", effect: () => -4},
-        ],
+        ]),
         contextSpec: {
             valuesSpec: [{
                 name: PERDICION_EN_AZATHOTH,

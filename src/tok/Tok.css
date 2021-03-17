@@ -134,3 +134,11 @@
 .Token.Fallo {
     background-image: url("icons/fail.png");
 }
+
+.Token.Blessed {
+    background-image: url("icons/token-blessed.png");
+}
+
+.Token.Cursed {
+    background-image: url("icons/token-cursed.png");
+}

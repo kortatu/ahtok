@@ -100,10 +100,11 @@ function WizardStep2({campaignWizard, setCampaignWizard}: WizardProps) {
                     id="level-selector"
                     value={campaignWizard.level ?? ""}
                     onChange={e => selectLevel(e.target.value as AHLevel)}>
-                    {AHLevels.map(level => (
+                    {AHLevels.filter(level => level !== "hard" && level !== "expert").map(level => (
                         <MenuItem key={level} value={level}>{t(level)}</MenuItem>
                     ))}
                 </Select>
+                <Typography variant="caption">{t("Hard and expert coming soon")}</Typography>
             </FormControl>
             {campaignWizard.level ?
                 <WizardStep3 campaignWizard={campaignWizard} setCampaignWizard={setCampaignWizard}/> : null}
