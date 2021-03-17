@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ahtok/static/css/main.d0bf3bf7.chunk.css",
-    "main.js": "/ahtok/static/js/main.0f648d78.chunk.js",
-    "main.js.map": "/ahtok/static/js/main.0f648d78.chunk.js.map",
+    "main.css": "/ahtok/static/css/main.6685f618.chunk.css",
+    "main.js": "/ahtok/static/js/main.2a578051.chunk.js",
+    "main.js.map": "/ahtok/static/js/main.2a578051.chunk.js.map",
     "runtime-main.js": "/ahtok/static/js/runtime-main.5833bf12.js",
     "runtime-main.js.map": "/ahtok/static/js/runtime-main.5833bf12.js.map",
     "static/js/2.88e3056a.chunk.js": "/ahtok/static/js/2.88e3056a.chunk.js",
     "static/js/2.88e3056a.chunk.js.map": "/ahtok/static/js/2.88e3056a.chunk.js.map",
     "index.html": "/ahtok/index.html",
-    "precache-manifest.4e851662cd55baa8030020761e8fb73d.js": "/ahtok/precache-manifest.4e851662cd55baa8030020761e8fb73d.js",
+    "precache-manifest.75a322877315bf9e2fa87fd7b8e33d2f.js": "/ahtok/precache-manifest.75a322877315bf9e2fa87fd7b8e33d2f.js",
     "service-worker.js": "/ahtok/service-worker.js",
-    "static/css/main.d0bf3bf7.chunk.css.map": "/ahtok/static/css/main.d0bf3bf7.chunk.css.map",
+    "static/css/main.6685f618.chunk.css.map": "/ahtok/static/css/main.6685f618.chunk.css.map",
     "static/js/2.88e3056a.chunk.js.LICENSE.txt": "/ahtok/static/js/2.88e3056a.chunk.js.LICENSE.txt",
     "static/media/App.css": "/ahtok/static/media/nah09_feature.b7e8e5d1.jpg",
     "static/media/Tok.css": "/ahtok/static/media/tombStone.ce2f7079.png"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.5833bf12.js",
     "static/js/2.88e3056a.chunk.js",
-    "static/css/main.d0bf3bf7.chunk.css",
-    "static/js/main.0f648d78.chunk.js"
+    "static/css/main.6685f618.chunk.css",
+    "static/js/main.2a578051.chunk.js"
   ]
 }

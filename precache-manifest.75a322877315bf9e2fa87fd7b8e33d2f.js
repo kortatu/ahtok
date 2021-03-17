@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e7a2a91ddafa3b69163b108109cd6470",
+    "revision": "71d4bcb9dc3b58be6fe94f3cba3978ef",
     "url": "/ahtok/index.html"
   },
   {
-    "revision": "7c3e17dead693fa74885",
-    "url": "/ahtok/static/css/main.d0bf3bf7.chunk.css"
+    "revision": "d11d30a4ffb33629ab44",
+    "url": "/ahtok/static/css/main.6685f618.chunk.css"
   },
   {
     "revision": "365e1ac63a3bbed9c9d8",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ahtok/static/js/2.88e3056a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7c3e17dead693fa74885",
-    "url": "/ahtok/static/js/main.0f648d78.chunk.js"
+    "revision": "d11d30a4ffb33629ab44",
+    "url": "/ahtok/static/js/main.2a578051.chunk.js"
   },
   {
     "revision": "9121769f5c7d26100390",
@@ -78,6 +78,14 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "cca74083cc3080c0cb56b7fad2235653",
     "url": "/ahtok/static/media/token-8.cca74083.png"
+  },
+  {
+    "revision": "76968ac2c81d25286cc89e3a7dbe0906",
+    "url": "/ahtok/static/media/token-blessed.76968ac2.png"
+  },
+  {
+    "revision": "80eab6c225509f0c7bbdf47a267ed664",
+    "url": "/ahtok/static/media/token-cursed.80eab6c2.png"
   },
   {
     "revision": "d24933bfc8d6ba53071a1c8723c0e32d",
