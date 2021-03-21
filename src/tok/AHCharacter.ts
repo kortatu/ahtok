@@ -20,4 +20,5 @@ export const AHCharacters: {[key: string]: AHCharacter} = {
     PatriceHathaway: {id: "PatriceHathaway", name: "Patrice Hathaway", shortName: "Patrice", elderSignEffect: () => 1},
     SisterMary: {id: "SisterMary", name: "Sister Mary", shortName: "Mary", elderSignEffect: () => 1},
     TrishScarborough: {id: "TrishScarborough", name: "Trish Scarborough", shortName: "Trish", elderSignEffect: () => 2},
+    DexterDrake: {id: "DexterDrake", name: "Dexter Drake", shortName: "Dexter", elderSignEffect: () => 2},
 }

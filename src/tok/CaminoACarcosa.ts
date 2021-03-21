@@ -64,9 +64,9 @@ function expert (): TokenBagSpec {
 function SeCierraElTelon(): IScenarioSpec {
     const HORROR_ON_YOU="Horror on you"
     return {
-        name: "Extracurricular Activiry",
+        name: "Curtain Call",
         translations: {
-            "es": "Actividad extracurricular",
+            "es": "Se cierra el telón",
         },
         scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => tokenBag.context[HORROR_ON_YOU] >= 3 ? -3 : -1},
@@ -103,7 +103,7 @@ export function buildCaminoACarcosaCampaignSpec(): ICampaignSpec {
             expert: expert(),
         },
         translations: {
-            "es": "El legado de Dunwich"
+            "es": "El camino a Carcosa"
         }
     }
 }
