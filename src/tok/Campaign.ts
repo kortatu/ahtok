@@ -7,6 +7,7 @@ import {buildLaEraOlvidadaCampaignSpec} from "./LaEraOlvidada";
 import {buildElLegadoDeDunwichCampaignSpec} from "./ElLegadoDeDunwich";
 import {buildLosDevoradoresACampaignSpec, buildLosDevoradoresBCampaignSpec} from "./LosDevoradoresDeSuenos";
 import {buildConspiraciondeInnsmouthCampaignSpec} from "./LaConspiracionDeInnsmouth";
+import {buildCaminoACarcosaCampaignSpec} from "./CaminoACarcosa";
 
 export type AHLevel = "easy" | "normal" | "hard" | "expert";
 export const AHLevels = ["easy" , "normal" , "hard" , "expert"]
@@ -32,6 +33,7 @@ export const Campaigns: ICampaigns = {
     TheDreamEatersA: buildLosDevoradoresACampaignSpec(),
     TheDreamEatersB: buildLosDevoradoresBCampaignSpec(),
     InnsmouthConspiracy: buildConspiraciondeInnsmouthCampaignSpec(),
+    PathToCarcosa: buildCaminoACarcosaCampaignSpec(),
 }
 
 export const campaignTranslations = Object.values(Campaigns).reduce<any>((allTrans, campaign) => {
