@@ -1,5 +1,13 @@
 import {ICampaignSpec} from "./Campaign";
-import {buildBagSpec, commonTokenEffectSpec, FALLO_AUTOMATICO, TokenBagSpec, tokenSpecDef} from "./Token";
+import {
+    buildBagSpec,
+    commonTokenEffectSpec,
+    FALLO_AUTOMATICO,
+    seal,
+    tokenAverage,
+    TokenBagSpec,
+    tokenSpecDef
+} from "./Token";
 import {IScenarioSpec} from "./Scenario";
 
 function easy(): TokenBagSpec {
@@ -89,12 +97,40 @@ function SeCierraElTelon(): IScenarioSpec {
     }
 }
 
+function ElUltimoRey(): IScenarioSpec {
+    const SHROUD_OF_YOUR_LOCATION="Shroud of your location"
+    return {
+        name: "The Last King",
+        translations: {
+            "es": "El último rey",
+        },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
+            {name: "Calavera", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Calavera"))},
+            {name: "Sectario", effect: (tokenBag) => -2},
+            {name: "Lápida", effect: (tokenBag) => -4},
+            {name: "Antiguo", effect: (tokenBag) => -tokenBag.context[SHROUD_OF_YOUR_LOCATION]},
+        ]),
+        contextSpec: {
+            valuesSpec: [{
+                name: SHROUD_OF_YOUR_LOCATION,
+                description: "Shroud of your location",
+                type: "number",
+                initialValue: 1,
+                translations: {
+                    "es": "Velo de tu lugar"
+                }
+            }
+            ]
+        }
+    }
+}
+
 export function buildCaminoACarcosaCampaignSpec(): ICampaignSpec {
     return {
         id: "PathToCarcosa",
         name: "Path to Carcosa",
         scenarios: [
-            SeCierraElTelon()
+            SeCierraElTelon(), ElUltimoRey()
         ],
         bagSpecsByLevel: {
             easy: easy(),
