@@ -199,12 +199,133 @@ export function ElJuramentoInconfesable(): IScenarioSpec {
     }
 }
 
+export function ElFantasmaDeLaVerdad(): IScenarioSpec {
+    const DOON_IN_PLAY = "Doom in play";
+    return {
+        name: "A Phantom of Truth",
+        translations: {
+            "es": "El fantasma de la verdad",
+        },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
+            {name: "Calavera", effect: (tokenBag) => -Math.min(5, tokenBag.context[DOON_IN_PLAY] as number)},
+            {name: "Sectario", effect: (tokenBag) => -2},
+            {name: "Lápida", effect: (tokenBag) => -3},
+            {name: "Antiguo", effect: (tokenBag) => -2},
+        ]),
+        contextSpec: {
+            valuesSpec: [{
+                name: DOON_IN_PLAY,
+                description: "Doom in play (Max. 5)",
+                type: "number",
+                initialValue: 0,
+                translations: {
+                    "es": "Perdición en juego (Max. 5)"
+                }
+            }
+            ]
+        }
+    }
+}
+
+export function LaMascaraPalida(): IScenarioSpec {
+    const LOCATIONS_AWAY = "Locations away from the start";
+    return {
+        name: "The Pallid Mask",
+        translations: {
+            "es": "La máscara pálida",
+        },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
+            {name: "Calavera", effect: (tokenBag) => -Math.min(5, tokenBag.context[LOCATIONS_AWAY] as number)},
+            {name: "Sectario", effect: (tokenBag) => -2},
+            {name: "Lápida", effect: (tokenBag) => -2},
+            {name: "Antiguo", effect: (tokenBag) => -3},
+        ]),
+        contextSpec: {
+            valuesSpec: [{
+                name: LOCATIONS_AWAY,
+                description: "Locations away from the starting location (Max. 5)",
+                type: "number",
+                initialValue: 0,
+                translations: {
+                    "es": "Lugares de distancia al inicial (Max. 5)"
+                }
+            }
+            ]
+        }
+    }
+}
+
+export function SurgenEstrellasNegras(): IScenarioSpec {
+    const HIGHEST_AMOUNT_OF_DOOM = "Highest amount of doom on an agenda";
+    const ATTACK_EVASION_DOOM = "Attack or evasion against an enemy with doom";
+    return {
+        name: "Black Stars Rise",
+        translations: {
+            "es": "Surgen estrellas negras",
+        },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
+            {name: "Calavera", effect: (tokenBag) => -tokenBag.context[HIGHEST_AMOUNT_OF_DOOM] as number},
+            {name: "Sectario", effect: (tokenBag) => (tokenBag.context[ATTACK_EVASION_DOOM] as boolean) ? -99 : tokenAverage(seal(tokenBag, "Sectario"))},
+            {name: "Lápida", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Lápida"))},
+            {name: "Antiguo", effect: (tokenBag) => -2},
+        ]),
+        contextSpec: {
+            valuesSpec: [{
+                name: HIGHEST_AMOUNT_OF_DOOM,
+                description: "Highest amount of doom in an agenda",
+                type: "number",
+                initialValue: 0,
+                translations: {
+                    "es": "Máxima cantidad de perdición en un plan"
+                }
+            }, {
+                name: ATTACK_EVASION_DOOM,
+                description: "Token revealed during an attack or evasion against an enemy with doom on it",
+                type: "boolean",
+                initialValue: false,
+                translations: {
+                    "es": "Ataque o evasión contra un enemigo con perdición"
+                }
+            }
+            ]
+        }
+    }
+}
+
+export function PenumbrosaCarcosa(): IScenarioSpec {
+    const NO_SANITY_REMAINING = "No sanity remaining";
+    return {
+        name: "Dim Carcosa",
+        translations: {
+            "es": "Penumbrosa Carcosa",
+        },
+        scenarioEffectSpec: commonTokenEffectSpec().concat([
+            {name: "Calavera", effect: (tokenBag) => tokenBag.context[NO_SANITY_REMAINING] as boolean ? -4 : -2},
+            {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
+            {name: "Lápida", effect: (tokenBag) => -3},
+            {name: "Antiguo", effect: (tokenBag) => -3},
+        ]),
+        contextSpec: {
+            valuesSpec: [{
+                name: NO_SANITY_REMAINING,
+                description: "You have no sanity remaining",
+                type: "boolean",
+                initialValue: false,
+                translations: {
+                    "es": "No te queda cordura"
+                }
+            }
+            ]
+        }
+    }
+}
 export function buildCaminoACarcosaCampaignSpec(): ICampaignSpec {
     return {
         id: "PathToCarcosa",
         name: "Path to Carcosa",
         scenarios: [
-            SeCierraElTelon(), ElUltimoRey(), EcosDelPasado(), ElJuramentoInconfesable()
+            SeCierraElTelon(), ElUltimoRey(), EcosDelPasado(), ElJuramentoInconfesable(), ElFantasmaDeLaVerdad(),
+            LaMascaraPalida(), SurgenEstrellasNegras(), PenumbrosaCarcosa()
         ],
         bagSpecsByLevel: {
             easy: easy(),
