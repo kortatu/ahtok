@@ -266,8 +266,8 @@ function LaCiudadDeLosArchivos(): IScenarioSpec {
         scenarioEffectSpec: commonTokenEffectSpec().concat([
             {name: "Calavera", effect: (tokenBag) => (tokenBag.context[CARTAS_EN_LA_MANO] as number) >= 5 ? -3 : -1},
             {name: "Sectario", effect: (tokenBag) => -2},
-            {name: "Lápida", effect: (tokenBag) => -2},
-            {name: "Antiguo", effect: (tokenBag) => -3},
+            {name: "Lápida", effect: (tokenBag) => -3},
+            {name: "Antiguo", effect: (tokenBag) => -2},
         ]),
         contextSpec: {
             valuesSpec: [{
