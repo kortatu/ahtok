@@ -255,7 +255,7 @@ function DondeMoranLosDioses(): IScenarioSpec {
 
 
 function PesadillaConsciente(): IScenarioSpec {
-    const ENGANGED_WITH_A_STAFF = "Engaged with a staff enemy";
+    const ENGAGED_WITH_A_STAFF = "Engaged with a staff enemy";
     const NUMBER_OF_INFESTED = "Number of infested locations";
     return {
         name: "Waking Nightmare",
@@ -263,14 +263,14 @@ function PesadillaConsciente(): IScenarioSpec {
             "es": "Punto sin retorno",
         },
         scenarioEffectSpec: commonTokenEffectSpec().concat([
-            {name: "Calavera", effect: (tokenBag) => (tokenBag.context[ENGANGED_WITH_A_STAFF] as boolean) ? -3 : -1},
+            {name: "Calavera", effect: (tokenBag) => (tokenBag.context[ENGAGED_WITH_A_STAFF] as boolean) ? -3 : -1},
             {name: "Sectario", effect: (tokenBag) => tokenAverage(seal(tokenBag, "Sectario"))},
             {name: "Antiguo", effect: (tokenBag) => -tokenBag.context[NUMBER_OF_INFESTED]},
         ]),
         contextSpec: {
             valuesSpec: [{
-                name: ENGANGED_WITH_A_STAFF,
-                description: "Enganged with a staff enemy",
+                name: ENGAGED_WITH_A_STAFF,
+                description: "Engaged with a staff enemy",
                 type: "boolean",
                 initialValue: false,
                 translations: {
